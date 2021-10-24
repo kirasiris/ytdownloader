@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Link from "next/link";
 import { withRouter } from "next/router";
+import { toast } from "react-toastify";
+import ReactHtmlParser from "react-html-parser";
 // ACTIONS
 import { getYoutTubeVideoInfo } from "@/actions/youtube";
 // HELPERS
@@ -15,8 +16,10 @@ import Layout from "@/layout/Layout";
 const Home = ({ router }) => {
 	const apiUrl = `http://localhost:5000/api/v1/`;
 	const [history, setHistory] = useState([]);
+	const [formats, setFormats] = useState([]);
 	const [video_url, setVideoUrl] = useState(``);
 	const [submitButtonText, setButtonText] = useState(`Download`);
+	const [error, setError] = useState(false);
 	const [videoData, setVideoData] = useState({
 		videoTitle: `Uknown title`,
 		videoDescription: `Uknown description`,
@@ -119,26 +122,24 @@ const Home = ({ router }) => {
 					},
 					videoViewCounts: r?.data?.videoDetails?.viewCount,
 				});
-				if (history !== undefined && history !== null) {
-					setHistory([
-						history.push(
-							window.localStorage.setItem(
-								`video#${r?.data?.videoDetails?.videoId}`,
-								JSON.stringify(r?.data?.videoDetails)
-							)
-						),
-					]);
-				} else {
-					setHistory(
-						window.localStorage.setItem(
-							`video#${r?.data?.videoDetails?.videoId}`,
-							JSON.stringify(r?.data?.videoDetails)
-						)
-					);
-				}
+
+				// setHistory([...history, r?.data?.videoDetails]);
+
+				setFormats(r?.data?.formats);
+				console.log(r?.data?.formats);
+
+				setHistory([
+					...history,
+					window.localStorage.setItem(
+						`video#${r?.data?.videoDetails?.videoId}`,
+						JSON.stringify(r?.data?.videoDetails)
+					),
+				]);
+				resetForm();
 			})
 			.catch((error) => {
-				alert(error);
+				toast.error(error);
+				setError(true);
 			});
 	};
 
@@ -156,19 +157,23 @@ const Home = ({ router }) => {
 			<div className="main-container">
 				<div className="localstorage-history">
 					<ListGroup className={`border-0`}>
+						<a
+							className={`list-group-item list-group-item-dark rounded-0 border-0`}
+							style={isActive(router, `/`)}
+						>
+							History
+						</a>
 						{history !== undefined &&
 							history !== null &&
-							Object?.entries(history).map((h, index) => (
-								<>
-									<Link key={h[0]} href={`/?video_url=${h[1].video_url}`}>
-										<a
-											className={`list-group-item rounded-0 border-0`}
-											style={isActive(router, `/?video_url=${h[1].video_url}`)}
-										>
-											{h[1].title}
-										</a>
-									</Link>
-								</>
+							Object.entries(history).map((h, index) => (
+								<Link key={h[0]} href={`/?video_url=${h[1].video_url}`}>
+									<a
+										className={`list-group-item rounded-0 border-0`}
+										style={isActive(router, `/?video_url=${h[1].video_url}`)}
+									>
+										{h[1].title}
+									</a>
+								</Link>
 							))}
 					</ListGroup>
 				</div>
@@ -206,6 +211,19 @@ const Home = ({ router }) => {
 									</Button>
 								</div>
 							</Form>
+							<div className="clearfix" />
+							<hr />
+							<ListGroup className={`border-0`}>
+								{formats !== undefined &&
+									formats !== null &&
+									formats.map((f) => (
+										<ListGroup.Item key={f.itag} className={f.itag}>
+											{f.itag} | Video Codec: {f.videoCodec} | Video Mimetype:{" "}
+											{f.mimeType} | Video Quality:
+											{f.qualityLabel} | Video FPS: {f.fps}
+										</ListGroup.Item>
+									))}
+							</ListGroup>
 						</Col>
 						<Col>
 							<h2>Video Data</h2>
@@ -246,7 +264,14 @@ const Home = ({ router }) => {
 								{videoData.videoViewCounts}
 							</a>
 							<hr />
-							<p>{videoData.videoDescription}</p>
+							{videoData.videoDescription && (
+								<div
+									className={`fetchHtml`}
+									dangerouslySetInnerHTML={{
+										__html: ReactHtmlParser(videoData.videoDescription),
+									}}
+								/>
+							)}
 							<hr />
 							{videoData?.videoKeywords?.map((r) => (
 								<a
