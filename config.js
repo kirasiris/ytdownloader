@@ -10,3 +10,4 @@ export const API_URL = publicRuntimeConfig.PRODUCTION
 export const PUBLIC_URL = publicRuntimeConfig.PRODUCTION
 	? "https://easyrest.vercel.app"
 	: "http://localhost:3000";
+export const KEVINFONSECA_URL = "https://kevinurielfonseca.me/";

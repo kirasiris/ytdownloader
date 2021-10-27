@@ -16,7 +16,7 @@ import Layout from "@/layout/Layout";
 const Home = ({ router }) => {
 	const apiUrl = `http://localhost:5000/api/v1/`;
 	const [history, setHistory] = useState([]);
-	const [formats, setFormats] = useState([]);
+	const [singleHistory, setSingleHistory] = useState();
 	const [video_url, setVideoUrl] = useState(``);
 	const [submitButtonText, setButtonText] = useState(`Download`);
 	const [error, setError] = useState(false);
@@ -45,6 +45,7 @@ const Home = ({ router }) => {
 
 	useEffect(() => {
 		const videoId = router.query.video_url;
+
 		if (videoId) {
 			const historyData = JSON.parse(
 				window.localStorage.getItem(`video#${videoId.split("v=")[1]}`)
@@ -73,6 +74,9 @@ const Home = ({ router }) => {
 				videoViewCounts: historyData?.viewCount, // Done
 			});
 		}
+	}, [router]);
+
+	useEffect(() => {
 		const moreHistory = Object.keys(window.localStorage)
 			.filter((key, index) => {
 				return key.indexOf("video#") == 0;
@@ -81,9 +85,8 @@ const Home = ({ router }) => {
 				newData[k] = JSON.parse(window.localStorage[k]);
 				return newData;
 			}, {});
-
-		setHistory(moreHistory);
-	}, [router, setHistory, setVideoData]);
+		moreHistory && setHistory(moreHistory);
+	}, []);
 
 	const handleChange = () => (e) => {
 		setVideoUrl(e.target.value);
@@ -123,24 +126,64 @@ const Home = ({ router }) => {
 					videoViewCounts: r?.data?.videoDetails?.viewCount,
 				});
 
-				// setHistory([...history, r?.data?.videoDetails]);
+				// setHistory(
+				// 	window.localStorage.setItem(
+				// 		`video#${r?.data?.videoDetails?.videoId}`,
+				// 		JSON.stringify(r?.data?.videoDetails)
+				// 	)
+				// );
 
-				setFormats(r?.data?.formats);
-				console.log(r?.data?.formats);
-
+				// setSingleHistory(
+				// 	window.localStorage.setItem(
+				// 		`video#${r?.data?.videoDetails?.videoId}`,
+				// 		JSON.stringify(r?.data?.videoDetails)
+				// 	)
+				// );
+				console.log("First console: ", history);
 				setHistory([
-					...history,
-					window.localStorage.setItem(
+					...window.localStorage.setItem(
 						`video#${r?.data?.videoDetails?.videoId}`,
 						JSON.stringify(r?.data?.videoDetails)
 					),
+					...history,
 				]);
+
+				console.log("Third console: ", ...history);
+
 				resetForm();
 			})
 			.catch((error) => {
 				toast.error(error);
 				setError(true);
 			});
+	};
+
+	const clearConsole = () => {
+		window != undefined && localStorage.clear();
+		setHistory([]);
+		setVideoData({
+			videoTitle: `Uknown title`,
+			videoDescription: `Uknown description`,
+			videoUrl: ``,
+			videoThumbnail: ``,
+			videoAuthor: `Unknown author`,
+			videoAuthorLink: `#!`,
+			videoChannelUrl: `#!`,
+			videoCategory: `Uknown`,
+			videoLikes: 0,
+			videoDislikes: 0,
+			videoKeywords: [],
+			videoGame: {
+				game: `Uknown`,
+				game_url: `#!`,
+				category: `Uknown`,
+				category_url: `#!`,
+				thumbnails: [],
+				year: `0000`,
+			},
+			videoViewCounts: 0,
+		});
+		resetForm();
 	};
 
 	const isActive = (router, path) => {
@@ -153,7 +196,7 @@ const Home = ({ router }) => {
 	};
 
 	return (
-		<Layout title={`Get Started`}>
+		<Layout title={`Get Started`} action={setHistory}>
 			<div className="main-container">
 				<div className="localstorage-history">
 					<ListGroup className={`border-0`}>
@@ -163,15 +206,16 @@ const Home = ({ router }) => {
 						>
 							History
 						</a>
+						<Button onClick={clearConsole}>Clear History</Button>
 						{history !== undefined &&
 							history !== null &&
 							Object.entries(history).map((h, index) => (
-								<Link key={h[0]} href={`/?video_url=${h[1].video_url}`}>
+								<Link key={h[0]} href={`/?video_url=${h[1]?.video_url}`}>
 									<a
 										className={`list-group-item rounded-0 border-0`}
-										style={isActive(router, `/?video_url=${h[1].video_url}`)}
+										style={isActive(router, `/?video_url=${h[1]?.video_url}`)}
 									>
-										{h[1].title}
+										{h[1]?.title}
 									</a>
 								</Link>
 							))}
@@ -211,7 +255,7 @@ const Home = ({ router }) => {
 									</Button>
 								</div>
 							</Form>
-							<div className="clearfix" />
+							{/* <div className="clearfix" />
 							<hr />
 							<ListGroup className={`border-0`}>
 								{formats !== undefined &&
@@ -223,7 +267,7 @@ const Home = ({ router }) => {
 											{f.qualityLabel} | Video FPS: {f.fps}
 										</ListGroup.Item>
 									))}
-							</ListGroup>
+							</ListGroup> */}
 						</Col>
 						<Col>
 							<h2>Video Data</h2>
