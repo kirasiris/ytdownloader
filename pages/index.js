@@ -99,7 +99,7 @@ const Home = ({ router }) => {
 		e.preventDefault();
 		setButtonText(`Looking for it...`);
 		await getYoutTubeVideoInfo(
-			`${apiUrl}youtube/getinfo?video_url=${video_url}`
+			`${apiUrl}extras/youtube/getinfo?video_url=${video_url}`
 		)()
 			.then((r) => {
 				setButtonText(`Info found`);
