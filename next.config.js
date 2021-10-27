@@ -1,7 +1,8 @@
 module.exports = {
 	publicRuntimeConfig: {
-		WEBSITE_NAME: "Easy Response",
-		WEBSITE_DESCRIPTION: "Test any public api endpoint",
+		WEBSITE_NAME: "YTDownloader",
+		WEBSITE_DESCRIPTION:
+			"An actual good YouTube videos downloader, totally for free!.",
 		PRODUCTION: true, // True when in public domain and False when in local domain
 	},
 	images: {

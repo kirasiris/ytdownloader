@@ -12,9 +12,9 @@ MAIN APPLICATION
 	display: flex;
 
 	/* Misc */
-	border: 1px solid #cbd5e0;
-	height: 100vh;
+	height: 100%;
 	width: 100%;
+	bottom: 0px;
 }
 .localstorage-history {
 	/* Initially, the left takes 3/4 width */
@@ -34,4 +34,8 @@ MAIN APPLICATION
 	/* top: 33%;
 	bottom: 33%;
 	position: relative; */
+}
+
+footer {
+	border-top: 1px solid #cbd5e0;
 }

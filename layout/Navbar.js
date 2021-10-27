@@ -2,8 +2,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Image from "next/image";
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { KEVINFONSECA_URL } from "@/config";
+import { APP_NAME, KEVINFONSECA_URL } from "@/config";
 
 const Menu = () => {
 	return (
@@ -16,8 +15,8 @@ const Menu = () => {
 						width="30"
 						height="30"
 						className="d-inline-block align-top"
-					/>{" "}
-					YTDownloader
+					/>
+					{APP_NAME}
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				<Navbar.Collapse id="responsive-navbar-nav">

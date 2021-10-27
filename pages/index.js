@@ -6,11 +6,14 @@ import ReactHtmlParser from "react-html-parser";
 // ACTIONS
 import { getYoutTubeVideoInfo } from "@/actions/youtube";
 // HELPERS
+import { APP_NAME, APP_DESCRIPTION, PUBLIC_URL } from "@/config";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
+import Container from "react-bootstrap/Container";
+import Ratio from "react-bootstrap/Ratio";
 import Layout from "@/layout/Layout";
 
 const Home = ({ router }) => {
@@ -24,6 +27,7 @@ const Home = ({ router }) => {
 		videoTitle: `Uknown title`,
 		videoDescription: `Uknown description`,
 		videoUrl: ``,
+		videoEmbedUrl: ``,
 		videoThumbnail: ``,
 		videoAuthor: `Unknown author`,
 		videoAuthorLink: `#!`,
@@ -55,6 +59,7 @@ const Home = ({ router }) => {
 				videoTitle: historyData?.title, // Done
 				videoDescription: historyData?.description, // Done
 				videoUrl: historyData?.video_url, // Done
+				videoEmbedUrl: historyData?.embed?.iframeUrl,
 				videoThumbnail: historyData?.thumbnails[0].url, // Done
 				videoAuthor: historyData?.author?.name, // Done
 				videoAuthorLink: historyData?.author?.user_url, // Done
@@ -107,6 +112,7 @@ const Home = ({ router }) => {
 					videoTitle: r?.data?.videoDetails?.title,
 					videoDescription: r?.data?.videoDetails?.description,
 					videoUrl: r?.data?.videoDetails?.video_url,
+					videoEmbedUrl: r?.data?.videoDetails?.embed?.iframeUrl,
 					videoThumbnail: r?.data?.videoDetails?.thumbnails,
 					videoAuthor: r?.data?.videoDetails?.author?.name,
 					videoAuthorLink: r?.data?.videoDetails?.author?.user_url,
@@ -126,29 +132,13 @@ const Home = ({ router }) => {
 					videoViewCounts: r?.data?.videoDetails?.viewCount,
 				});
 
-				// setHistory(
-				// 	window.localStorage.setItem(
-				// 		`video#${r?.data?.videoDetails?.videoId}`,
-				// 		JSON.stringify(r?.data?.videoDetails)
-				// 	)
-				// );
-
-				// setSingleHistory(
-				// 	window.localStorage.setItem(
-				// 		`video#${r?.data?.videoDetails?.videoId}`,
-				// 		JSON.stringify(r?.data?.videoDetails)
-				// 	)
-				// );
-				console.log("First console: ", history);
-				setHistory([
-					...window.localStorage.setItem(
+				setHistory(
+					window.localStorage.setItem(
 						`video#${r?.data?.videoDetails?.videoId}`,
 						JSON.stringify(r?.data?.videoDetails)
-					),
-					...history,
-				]);
-
-				console.log("Third console: ", ...history);
+					)
+				);
+				console.log(r?.data?.videoDetails);
 
 				resetForm();
 			})
@@ -165,6 +155,7 @@ const Home = ({ router }) => {
 			videoTitle: `Uknown title`,
 			videoDescription: `Uknown description`,
 			videoUrl: ``,
+			videoEmbedUrl: ``,
 			videoThumbnail: ``,
 			videoAuthor: `Unknown author`,
 			videoAuthorLink: `#!`,
@@ -224,6 +215,17 @@ const Home = ({ router }) => {
 				<div className="resizer" id="dragMe"></div>
 				<div className="form-container">
 					<Row className="m-auto">
+						<div className="p-5 mb-4 bg-light">
+							<Container fluid className="py-5">
+								<h1 className="display-1 fw-bold">{APP_NAME}</h1>
+								<h2 className="display-5 fw-bold">{APP_DESCRIPTION}</h2>
+								<p className="col-md-8 fs-4">
+									You will be able to download the video once the data is
+									fetched from the server by scrolling down to the bottom of the
+									page and clicking on the Download button
+								</p>
+							</Container>
+						</div>
 						<Col xl={12} className="mb-3">
 							<Form onSubmit={initDownload} className="w-100">
 								<Form.Control
@@ -271,7 +273,16 @@ const Home = ({ router }) => {
 						</Col>
 						<Col>
 							<h2>Video Data</h2>
-							{/* <Image alt="" src={`${videoData.videoThumbnail[0].url}`} /> */}
+							{videoData.videoUrl !== undefined &&
+								videoData.videoUrl !== null &&
+								videoData.videoUrl !== `` && (
+									<>
+										<Ratio aspectRatio="16x9">
+											<embed src={`${videoData?.videoEmbedUrl}`} />
+										</Ratio>
+										<hr />
+									</>
+								)}
 							<h5>
 								<a
 									href={`${videoData.videoUrl}`}
@@ -307,16 +318,19 @@ const Home = ({ router }) => {
 								<i className="fas fa-eye me-1" />
 								{videoData.videoViewCounts}
 							</a>
-							<hr />
+
 							{videoData.videoDescription && (
-								<div
-									className={`fetchHtml`}
-									dangerouslySetInnerHTML={{
-										__html: ReactHtmlParser(videoData.videoDescription),
-									}}
-								/>
+								<>
+									<hr />
+									<div
+										className={`fetchHtml`}
+										dangerouslySetInnerHTML={{
+											__html: ReactHtmlParser(videoData.videoDescription),
+										}}
+									/>
+									<hr />
+								</>
 							)}
-							<hr />
 							{videoData?.videoKeywords?.map((r) => (
 								<a
 									key={r}
