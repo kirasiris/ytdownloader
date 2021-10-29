@@ -28,6 +28,9 @@
             ],
             "@/config": [
                 "config.js"
+            ],
+            "@/screenshot": [
+                "screenshot.png"
             ]
         },
         "target": "es6"
