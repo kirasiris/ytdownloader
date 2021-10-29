@@ -9,7 +9,7 @@ import {
 	getYoutTubeVideoDownload,
 } from "@/actions/youtube";
 // HELPERS
-import { APP_NAME, APP_DESCRIPTION, PUBLIC_URL } from "@/config";
+import { APP_NAME, APP_DESCRIPTION, API_URL } from "@/config";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -21,7 +21,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Layout from "@/layout/Layout";
 
 const Home = ({ router }) => {
-	const apiUrl = `http://localhost:5000/api/v1/`;
+	const apiUrl = `${API_URL}/api/v1/`;
 	const [history, setHistory] = useState([]);
 	const [download, setDownload] = useState([]);
 	const [video_url, setVideoUrl] = useState(``);

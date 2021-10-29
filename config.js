@@ -8,6 +8,6 @@ export const API_URL = publicRuntimeConfig.PRODUCTION
 	? "https://befree.herokuapp.com"
 	: "http://localhost:5000";
 export const PUBLIC_URL = publicRuntimeConfig.PRODUCTION
-	? "https://easyrest.vercel.app"
+	? "https://ytdownloader-phi.vercel.app"
 	: "http://localhost:3000";
 export const KEVINFONSECA_URL = "https://kevinurielfonseca.me/";
