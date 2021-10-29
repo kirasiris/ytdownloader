@@ -250,8 +250,8 @@ const Home = ({ router }) => {
 								<h2 className="display-5 fw-bold">{APP_DESCRIPTION}</h2>
 								<p className="col-md-8 fs-4">
 									You will be able to download the video once the data is
-									fetched from the server by scrolling down to the bottom of the
-									page and clicking on the Download button
+									fetched from the server by exploring the tabs on the right
+									hand side
 								</p>
 							</Container>
 						</div>
