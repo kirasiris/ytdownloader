@@ -4,7 +4,10 @@ import { withRouter } from "next/router";
 import { toast } from "react-toastify";
 import ReactHtmlParser from "react-html-parser";
 // ACTIONS
-import { getYoutTubeVideoInfo } from "@/actions/youtube";
+import {
+	getYoutTubeVideoInfo,
+	getYoutTubeVideoDownload,
+} from "@/actions/youtube";
 // HELPERS
 import { APP_NAME, APP_DESCRIPTION, PUBLIC_URL } from "@/config";
 import Form from "react-bootstrap/Form";
@@ -14,13 +17,17 @@ import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Container from "react-bootstrap/Container";
 import Ratio from "react-bootstrap/Ratio";
+import Tabs from "react-bootstrap/Tabs";
 import Layout from "@/layout/Layout";
 
 const Home = ({ router }) => {
 	const apiUrl = `http://localhost:5000/api/v1/`;
 	const [history, setHistory] = useState([]);
-	const [singleHistory, setSingleHistory] = useState();
+	const [download, setDownload] = useState([]);
 	const [video_url, setVideoUrl] = useState(``);
+	const [finalVideo, setFinalVideoToDownload] = useState(``);
+	const [highestQualityVideo, setHighestQualityVideo] = useState(``);
+	const [highestQualityAudio, setHighestQualityAudio] = useState(``);
 	const [submitButtonText, setButtonText] = useState(`Download`);
 	const [error, setError] = useState(false);
 	const [videoData, setVideoData] = useState({
@@ -37,7 +44,7 @@ const Home = ({ router }) => {
 		videoDislikes: 0,
 		videoKeywords: [],
 		videoGame: {
-			game: `Uknown`,
+			game: ``,
 			game_url: `#!`,
 			category: `Uknown`,
 			category_url: `#!`,
@@ -53,6 +60,10 @@ const Home = ({ router }) => {
 		if (videoId) {
 			const historyData = JSON.parse(
 				window.localStorage.getItem(`video#${videoId.split("v=")[1]}`)
+			);
+
+			const downloadData = JSON.parse(
+				window.localStorage.getItem(`download#${videoId.split("v=")[1]}`)
 			);
 
 			setVideoData({
@@ -78,6 +89,9 @@ const Home = ({ router }) => {
 				},
 				videoViewCounts: historyData?.viewCount, // Done
 			});
+			setFinalVideoToDownload(downloadData?.finalVideo);
+			setHighestQualityVideo(downloadData?.highestQualityOnlyVideo);
+			setHighestQualityAudio(downloadData?.highestQualityOnlyAudio);
 		}
 	}, [router]);
 
@@ -100,7 +114,7 @@ const Home = ({ router }) => {
 	const resetForm = () => {
 		setVideoUrl(``);
 	};
-	const initDownload = async (e) => {
+	const initLookOut = async (e) => {
 		e.preventDefault();
 		setButtonText(`Looking for it...`);
 		await getYoutTubeVideoInfo(
@@ -132,13 +146,23 @@ const Home = ({ router }) => {
 					videoViewCounts: r?.data?.videoDetails?.viewCount,
 				});
 
+				setFinalVideoToDownload(r?.extradata?.finalVideo);
+				setHighestQualityVideo(r?.extradata?.highestQualityOnlyVideo);
+				setHighestQualityAudio(r?.extradata?.highestQualityOnlyAudio);
+
 				setHistory(
 					window.localStorage.setItem(
 						`video#${r?.data?.videoDetails?.videoId}`,
 						JSON.stringify(r?.data?.videoDetails)
 					)
 				);
-				console.log(r?.data?.videoDetails);
+
+				setDownload(
+					window.localStorage.setItem(
+						`download#${r?.data?.videoDetails?.videoId}`,
+						JSON.stringify(r?.extradata)
+					)
+				);
 
 				resetForm();
 			})
@@ -146,6 +170,11 @@ const Home = ({ router }) => {
 				toast.error(error);
 				setError(true);
 			});
+	};
+
+	const initDownload = async (e) => {
+		e.preventDefault();
+		// getYoutTubeVideoDownload();
 	};
 
 	const clearConsole = () => {
@@ -165,7 +194,7 @@ const Home = ({ router }) => {
 			videoDislikes: 0,
 			videoKeywords: [],
 			videoGame: {
-				game: `Uknown`,
+				game: ``,
 				game_url: `#!`,
 				category: `Uknown`,
 				category_url: `#!`,
@@ -227,7 +256,7 @@ const Home = ({ router }) => {
 							</Container>
 						</div>
 						<Col xl={12} className="mb-3">
-							<Form onSubmit={initDownload} className="w-100">
+							<Form onSubmit={initLookOut} className="w-100">
 								<Form.Control
 									type={`text`}
 									placeholder={`Paste the YouTube URL...`}
@@ -271,7 +300,7 @@ const Home = ({ router }) => {
 									))}
 							</ListGroup> */}
 						</Col>
-						<Col>
+						<Col xl={6}>
 							<h2>Video Data</h2>
 							{videoData.videoUrl !== undefined &&
 								videoData.videoUrl !== null &&
@@ -342,37 +371,99 @@ const Home = ({ router }) => {
 								</a>
 							))}
 						</Col>
-						{/* <Col>
-							<img
-								alt={`${videoData.videoGame.game}`}
-								src={`${videoData.videoGame.thumbnails[0]?.url}`}
-							/>
-						</Col> */}
-						<Col>
-							<h2>Videogame Data</h2>
-							<h5>
-								<a
-									href={`${videoData.videoGame.game_url}`}
-									target="_blank"
-									rel="noreferrer noopener"
-								>
-									{videoData.videoGame.game}
-								</a>
-							</h5>
-							<hr />
-							<a
-								href={`${videoData.videoGame.category_url}`}
-								target="_blank"
-								rel="noreferrer noopener"
-								className="btn btn-sm btn-outline-dark me-1"
+						<Col xl={6}>
+							<h2>Data</h2>
+							<Tabs
+								defaultActiveKey="download-data"
+								id="what-up-bitch"
+								className="mb-3"
 							>
-								<i className="fas fa-tag me-1" />
-								{videoData.videoGame.category}
-							</a>
-							<a href="#!" className="btn btn-sm btn-outline-dark me-1">
-								<i className="fas fa-clock me-1" />
-								{videoData.videoGame.year}
-							</a>
+								{finalVideo?.url !== undefined &&
+									finalVideo?.url !== null &&
+									finalVideo?.url !== `` && (
+										<Tabs.Tab eventKey="download-data" title="Download Data">
+											<h2>Download</h2>
+											<Tabs
+												defaultActiveKey="video"
+												id="what-up-bitch"
+												className="mb-3"
+											>
+												<Tabs.Tab eventKey="video" title="Video">
+													<a
+														href={`${finalVideo?.url}`}
+														download
+														className={`btn btn-sm btn-dark me-1`}
+														target="_self"
+													>
+														Download Video - CLICK ME!
+													</a>
+													<hr />
+													<Ratio aspectRatio="16x9">
+														<embed src={`${finalVideo?.url}`} />
+													</Ratio>
+												</Tabs.Tab>
+												<Tabs.Tab eventKey="video-only" title="Video ONLY">
+													<a
+														href={`${highestQualityVideo.url}`}
+														download
+														className={`btn btn-sm btn-dark me-1`}
+														target="_self"
+													>
+														Download Video ONLY - CLICK ME!
+													</a>
+													<hr />
+													<Ratio aspectRatio="16x9">
+														<embed src={`${highestQualityVideo.url}`} />
+													</Ratio>
+												</Tabs.Tab>
+												<Tabs.Tab eventKey="audio-only" title="Audio ONLY">
+													<a
+														href={`${highestQualityAudio.url}`}
+														download
+														className={`btn btn-sm btn-dark me-1`}
+														target="_self"
+													>
+														Download Audio ONLY - CLICK ME!
+													</a>
+													<hr />
+													<audio controls crossOrigin>
+														<source src={`${highestQualityAudio.url}`} />
+													</audio>
+												</Tabs.Tab>
+											</Tabs>
+										</Tabs.Tab>
+									)}
+								{videoData.videoGame.game !== null &&
+									videoData.videoGame.game !== undefined &&
+									videoData.videoGame.game !== `` && (
+										<Tabs.Tab eventKey="videogame-data" title="Videogame Data">
+											<h2>Videogame</h2>
+											<h5>
+												<a
+													href={`${videoData.videoGame.game_url}`}
+													target="_blank"
+													rel="noreferrer noopener"
+												>
+													{videoData.videoGame.game}
+												</a>
+											</h5>
+											<hr />
+											<a
+												href={`${videoData.videoGame.category_url}`}
+												target="_blank"
+												rel="noreferrer noopener"
+												className="btn btn-sm btn-outline-dark me-1"
+											>
+												<i className="fas fa-tag me-1" />
+												{videoData.videoGame.category}
+											</a>
+											<a href="#!" className="btn btn-sm btn-outline-dark me-1">
+												<i className="fas fa-clock me-1" />
+												{videoData.videoGame.year}
+											</a>
+										</Tabs.Tab>
+									)}
+							</Tabs>
 						</Col>
 					</Row>
 				</div>

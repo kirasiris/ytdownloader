@@ -5,6 +5,14 @@ a {
 	text-decoration: none;
 }
 
+footer {
+	border-top: 1px solid #cbd5e0;
+}
+
+audio {
+	width: 100%;
+}
+
 /*****************************
 MAIN APPLICATION
 *****************************/
@@ -34,8 +42,4 @@ MAIN APPLICATION
 	/* top: 33%;
 	bottom: 33%;
 	position: relative; */
-}
-
-footer {
-	border-top: 1px solid #cbd5e0;
 }
