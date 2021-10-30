@@ -1,5 +1,5 @@
 module.exports = {
-	publicRuntimeConfig: {
+	env: {
 		WEBSITE_NAME: "YTDownloader",
 		WEBSITE_DESCRIPTION:
 			"An actual good YouTube videos downloader, totally for free!.",
@@ -13,5 +13,4 @@ module.exports = {
 			"kevinurielfonseca.me",
 		],
 	},
-	reactStrictMode: true,
 };
