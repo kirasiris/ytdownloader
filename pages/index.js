@@ -216,8 +216,8 @@ const Home = ({ router }) => {
 	};
 
 	return (
-		<Layout title={`Get Started`} action={setHistory}>
-			<div className="main-container">
+		<Layout title={`Get Started`}>
+			{/* <div className="main-container">
 				<div className="localstorage-history">
 					<ListGroup className={`border-0`}>
 						<a
@@ -286,19 +286,6 @@ const Home = ({ router }) => {
 									</Button>
 								</div>
 							</Form>
-							{/* <div className="clearfix" />
-							<hr />
-							<ListGroup className={`border-0`}>
-								{formats !== undefined &&
-									formats !== null &&
-									formats.map((f) => (
-										<ListGroup.Item key={f.itag} className={f.itag}>
-											{f.itag} | Video Codec: {f.videoCodec} | Video Mimetype:{" "}
-											{f.mimeType} | Video Quality:
-											{f.qualityLabel} | Video FPS: {f.fps}
-										</ListGroup.Item>
-									))}
-							</ListGroup> */}
 						</Col>
 						<Col xl={6}>
 							<h2>Video Data</h2>
@@ -467,7 +454,7 @@ const Home = ({ router }) => {
 						</Col>
 					</Row>
 				</div>
-			</div>
+			</div> */}
 		</Layout>
 	);
 };
