@@ -248,6 +248,58 @@ const Home = ({ router }) => {
 		setVideoUrl(e.target.value);
 	};
 
+	const listItems = () => {
+		const items = [];
+		for (let i = 0; i <= 5; i++) {
+			items.push(
+				<ListGroup.Item key={i}>
+					<p className="h6">Title</p>
+					<audio controls style={{ backgroundColor: "#f1f3f4" }}>
+						<source
+							src={`https://samplelib.com/lib/preview/mp3/sample-15s.mp3`}
+						/>
+					</audio>
+
+					<Button type="submit" variant="dark" size="sm" className="m-1">
+						Download
+					</Button>
+					<Button
+						type="button"
+						variant="secondary"
+						size="sm"
+						className="m-1"
+						onClick={() => setDisplayModal(true)}
+					>
+						More
+					</Button>
+					<Modal
+						show={displayModal}
+						onHide={() => setDisplayModal(false)}
+						size="xl"
+						aria-labelledby="contained-modal-title-vcenter"
+						centered
+					>
+						<Modal.Header closeButton>
+							<h1 className="display-6">Download Options</h1>
+						</Modal.Header>
+						<Modal.Body>
+							Woohoo, you are reading this text in a modal!
+						</Modal.Body>
+						<Modal.Footer>
+							<Button
+								variant="secondary"
+								onClick={() => setDisplayModal(false)}
+							>
+								Close
+							</Button>
+						</Modal.Footer>
+					</Modal>
+				</ListGroup.Item>
+			);
+		}
+		return items;
+	};
+
 	return (
 		<Layout title={`Get Started`}>
 			<div className="p-5 bg-light">
@@ -304,56 +356,7 @@ const Home = ({ router }) => {
 						</Col>
 						<Col xl={6}>
 							<Card>
-								<ListGroup variant="flush">
-									<ListGroup.Item>
-										<p className="h6">Title</p>
-										<audio controls style={{ backgroundColor: "#f1f3f4" }}>
-											<source
-												src={`https://samplelib.com/lib/preview/mp3/sample-15s.mp3`}
-											/>
-										</audio>
-
-										<Button
-											type="submit"
-											variant="dark"
-											size="sm"
-											className="m-1"
-										>
-											Download
-										</Button>
-										<Button
-											type="button"
-											variant="secondary"
-											size="sm"
-											className="m-1"
-											onClick={() => setDisplayModal(true)}
-										>
-											More
-										</Button>
-										<Modal
-											show={displayModal}
-											onHide={() => setDisplayModal(false)}
-											size="xl"
-											aria-labelledby="contained-modal-title-vcenter"
-											centered
-										>
-											<Modal.Header closeButton>
-												<h1 className="display-6">Download Options</h1>
-											</Modal.Header>
-											<Modal.Body>
-												Woohoo, you're reading this text in a modal!
-											</Modal.Body>
-											<Modal.Footer>
-												<Button
-													variant="secondary"
-													onClick={() => setDisplayModal(false)}
-												>
-													Close
-												</Button>
-											</Modal.Footer>
-										</Modal>
-									</ListGroup.Item>
-								</ListGroup>
+								<ListGroup variant="flush">{listItems()}</ListGroup>
 							</Card>
 						</Col>
 					</Row>

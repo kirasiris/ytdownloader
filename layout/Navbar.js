@@ -7,7 +7,7 @@ import { APP_NAME, KEVINFONSECA_URL } from "@/config";
 const Menu = () => {
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-			<Container>
+			<Container fluid>
 				<Navbar.Brand href="/" className="pt-0">
 					<Image
 						alt=""
