@@ -11,9 +11,12 @@ import {
 // HELPERS
 import { APP_NAME, APP_DESCRIPTION, API_URL } from "@/config";
 import Form from "react-bootstrap/Form";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Container from "react-bootstrap/Container";
 import Ratio from "react-bootstrap/Ratio";
@@ -114,6 +117,9 @@ const Home = ({ router }) => {
 	const resetForm = () => {
 		setVideoUrl(``);
 	};
+
+	const [displayModal, setDisplayModal] = useState(false);
+
 	const initLookOut = async (e) => {
 		e.preventDefault();
 		setButtonText(`Looking for it...`);
@@ -217,6 +223,83 @@ const Home = ({ router }) => {
 
 	return (
 		<Layout title={`Get Started`}>
+			<Container fluid>
+				<div className="p-5 bg-light">
+					<Container fluid className="py-5">
+						<h1 className="display-1 fw-bold">{APP_NAME}</h1>
+						<h2 className="display-5 fw-bold">{APP_DESCRIPTION}</h2>
+						<p className="col-md-8 fs-4">
+							You will be able to download the video once the data is fetched
+							from the server by exploring the tabs on the right hand side
+						</p>
+					</Container>
+				</div>
+				<div className="p-5 mb-4">
+					<Container fluid className="py-5">
+						<Row>
+							<Col xl={6}>
+								<Ratio aspectRatio="16x9">
+									<embed src={`https://www.youtube.com/embed/mK7lDooAGJw`} />
+								</Ratio>
+							</Col>
+							<Col xl={6}>
+								<Card>
+									<ListGroup variant="flush">
+										<ListGroup.Item>
+											<p className="h6">Title</p>
+											<audio controls style={{ backgroundColor: "#f1f3f4" }}>
+												<source
+													src={`https://samplelib.com/lib/preview/mp3/sample-15s.mp3`}
+												/>
+											</audio>
+
+											<Button
+												type="submit"
+												variant="dark"
+												size="sm"
+												className="m-1"
+											>
+												Download
+											</Button>
+											<Button
+												type="button"
+												variant="secondary"
+												size="sm"
+												className="m-1"
+												onClick={() => setDisplayModal(true)}
+											>
+												More
+											</Button>
+											<Modal
+												show={displayModal}
+												onHide={() => setDisplayModal(false)}
+												size="xl"
+												aria-labelledby="contained-modal-title-vcenter"
+												centered
+											>
+												<Modal.Header closeButton>
+													<h1 className="display-6">Download Options</h1>
+												</Modal.Header>
+												<Modal.Body>
+													Woohoo, you're reading this text in a modal!
+												</Modal.Body>
+												<Modal.Footer>
+													<Button
+														variant="secondary"
+														onClick={() => setDisplayModal(false)}
+													>
+														Close
+													</Button>
+												</Modal.Footer>
+											</Modal>
+										</ListGroup.Item>
+									</ListGroup>
+								</Card>
+							</Col>
+						</Row>
+					</Container>
+				</div>
+			</Container>
 			{/* <div className="main-container">
 				<div className="localstorage-history">
 					<ListGroup className={`border-0`}>
