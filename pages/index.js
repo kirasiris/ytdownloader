@@ -297,7 +297,7 @@ const Home = ({ router }) => {
 			<div className="p-5 bg-light">
 				<Container fluid className="py-5">
 					<Row>
-						<Col xl={6}>
+						<Col xl={6} className="mb-3">
 							<Ratio aspectRatio="16x9">
 								<embed src={`https://www.youtube.com/embed/mK7lDooAGJw`} />
 							</Ratio>
