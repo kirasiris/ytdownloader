@@ -4,7 +4,7 @@ import { API_URL } from "@/config";
 
 // HANLDE API REQUESTS
 const api = axios.create({
-	baseURL: `${API_URL}/api/v1/extras/`,
+	baseURL: `${API_URL}/api/v1/extras`,
 	headers: {
 		"Content-Type": `application/json`,
 	},

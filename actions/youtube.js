@@ -7,7 +7,7 @@ import api from "@/helpers/api";
 // @status  DONE
 export const getYouTubes = (params) => async (dispatch) => {
 	try {
-		const res = await api.get(`youtube${params}`);
+		const res = await api.get(`/youtube${params}`);
 		return res.data;
 	} catch (err) {
 		// const error = err.response.data.message;
@@ -30,12 +30,12 @@ export const getYouTubes = (params) => async (dispatch) => {
 };
 
 // @desc    Get single youtube
-// @route   GET /api/v1/extras/youtube/single/:id
+// @route   GET /api/v1/extras/youtube/:id/:videoid
 // @access  Private
 // @status  DONE
-export const getYouTube = (id) => async (dispatch) => {
+export const getYouTube = (id, videoid) => async (dispatch) => {
 	try {
-		const res = await api.get(`youtube/${id}`);
+		const res = await api.get(`/youtube/${id}/${videoid}`);
 
 		return res.data;
 	} catch (err) {
@@ -62,9 +62,9 @@ export const getYouTube = (id) => async (dispatch) => {
 // @description Get YouTube Info
 // @access      Private
 // @task        DONE
-export const getYoutTubeVideoInfo = (params) => async (dispatch) => {
+export const createYouTube = (formData) => async (dispatch) => {
 	try {
-		const res = await api.get(`youtube/getinfo${params}`);
+		const res = await api.post(`/youtube/getinfo`, formData);
 
 		return res.data;
 	} catch (err) {
@@ -91,9 +91,9 @@ export const getYoutTubeVideoInfo = (params) => async (dispatch) => {
 // @description Get YouTube Download
 // @access      Private
 // @task        DONE
-export const getYoutTubeVideoDownload = (params) => async (dispatch) => {
+export const downloadYouTube = (params) => async (dispatch) => {
 	try {
-		const res = await api.get(params);
+		const res = await api.get(`/youtube/getvideo${params}`);
 
 		return res.data;
 	} catch (err) {

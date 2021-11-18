@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Menu from "@/layout/Navbar";
 import Footer from "@/layout/Footer";
+import JumbotronHeader from "@/layout/JumbotronHeader";
 
 import { APP_NAME, APP_DESCRIPTION, PUBLIC_URL } from "@/config";
 import ScreenShot from "@/screenshot";
@@ -124,7 +125,10 @@ const Layout = ({
 				{cssInline && <style>{cssInline}</style>}
 			</Head>
 			<Menu />
-			<main>{children}</main>
+			<main>
+				<JumbotronHeader />
+				{children}
+			</main>
 			<Footer />
 		</>
 	);
