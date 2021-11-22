@@ -13,6 +13,11 @@ audio {
 	width: 100%;
 }
 
+.list-container {
+	height: 1300px;
+	overflow-y: auto;
+}
+
 /*****************************
 MAIN APPLICATION
 *****************************/

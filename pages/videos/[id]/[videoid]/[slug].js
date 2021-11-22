@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { withRouter } from "next/router";
 // ACTIONS
 import { getYouTubes, getYouTube } from "@/actions/youtube";
@@ -9,7 +8,7 @@ import FormJumbotron from "@/layout/FormJumbotron";
 import SplitView from "@/layout/SplitView";
 
 export const getServerSideProps = async (context) => {
-	const params = ``;
+	const params = `?sort=-createdAt`;
 	const videos = (await getYouTubes(params)()) || [];
 
 	const totalPages = videos?.pagination?.totalpages || 0;
@@ -53,15 +52,12 @@ const Video = ({
 	router,
 	video,
 }) => {
-	const [video_url, setVideoUrl] = useState(
-		`https://www.youtube.com/embed/mK7lDooAGJw`
-	);
-
+	const [myVideo, setMyVideo] = useState(null);
 	const [videos, setVideos] = useState(serverVideos);
 
 	useEffect(() => {
 		setVideos(serverVideos);
-	}, [params]);
+	}, [router]);
 
 	return (
 		<Layout
@@ -77,15 +73,11 @@ const Video = ({
 			// postImage={`${job.producer.avatar}`}
 		>
 			<FormJumbotron
-				videoUrl={video_url}
-				setUrl={setVideoUrl}
+				setObject={setMyVideo}
 				setObjects={setVideos}
-			/>
-			<SplitView
-				videoUrl={video.videoEmbedUrl ? video.videoEmbedUrl : video_url}
-				thumbnails={video.thumbnails}
 				objects={videos}
 			/>
+			<SplitView myVideo={myVideo} video={video} objects={videos} />
 		</Layout>
 	);
 };

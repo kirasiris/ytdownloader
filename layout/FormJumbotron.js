@@ -6,17 +6,26 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
-const FormJumbotron = ({ videoUrl, setUrl, setObjects }) => {
+const FormJumbotron = ({ setObject, setObjects, objects }) => {
+	const [videoData, setVideoData] = useState({
+		video_url: ``,
+	});
+
+	const { video_url } = videoData;
+
 	const [submitButtonText, setButtonText] = useState(`Search`);
 	const [error, setError] = useState(false);
 	const initLookOut = async (e) => {
 		e.preventDefault();
-		setButtonText(`Searching`);
-		await createYouTube(videoUrl)()
+		setButtonText(`Searching...`);
+		await createYouTube(videoData)()
 			.then((result) => {
 				setButtonText(`Result`);
-				setUrl(result.data.videoEmbedUrl);
-				setObjects([result.data, ...videos]);
+				setObject(result.data);
+				setObjects([result.data, ...objects]);
+				setVideoData({
+					video_url: result.data.videoEmbedUrl,
+				});
 				resetForm();
 			})
 			.catch((err) => {
@@ -24,12 +33,14 @@ const FormJumbotron = ({ videoUrl, setUrl, setObjects }) => {
 			});
 	};
 
-	const resetForm = () => {
-		setUrl(``);
+	const handleChange = (name) => (e) => {
+		setVideoData({ ...videoData, [name]: e.target.value });
 	};
 
-	const handleChange = () => (e) => {
-		setUrl(e.target.value);
+	const resetForm = () => {
+		setVideoData({
+			video_url: ``,
+		});
 	};
 
 	return (
@@ -38,18 +49,18 @@ const FormJumbotron = ({ videoUrl, setUrl, setObjects }) => {
 				<Form onSubmit={initLookOut} className="w-100">
 					<Form.Control
 						type={`text`}
-						placeholder={`Paste the YouTube URL...`}
+						placeholder={`https://www.youtube.com/watch?v=jDWahg4odAY`}
 						name={`video_url`}
 						id={`keywrod`}
 						onChange={handleChange(`video_url`)}
-						value={videoUrl}
+						value={video_url}
 					/>
 					<div className="mt-3">
 						<Button
 							type={`submit`}
 							variant={`dark`}
 							size={`sm`}
-							disabled={videoUrl.length > 0 ? !true : !false}
+							disabled={video_url.length > 0 ? !true : !false}
 							className={`float-start`}
 						>
 							{submitButtonText}

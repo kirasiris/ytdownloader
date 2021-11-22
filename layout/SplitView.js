@@ -5,7 +5,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import Ratio from "react-bootstrap/Ratio";
 import Alert from "react-bootstrap/Alert";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
@@ -13,24 +12,54 @@ import Container from "react-bootstrap/Container";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import Carousel from "react-bootstrap/Carousel";
+import Ratio from "react-bootstrap/Ratio";
 import DownloadsModal from "@/layout/DownloadsModal";
 
-const SplitView = ({ videoUrl, thumbnails, objects }) => {
+const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 	return (
 		<div className="p-5 bg-light">
 			<Container fluid className="py-5">
 				<Row>
 					<Col xl={6} className="mb-3">
-						<Tabs defaultActiveKey="videoUrl" variant="pills" className="mb-1">
-							<Tab eventKey="videoUrl" title="Video">
+						<Tabs defaultActiveKey="video-url" variant="pills" className="mb-1">
+							<Tab eventKey="video-url" title="Video">
 								<Ratio aspectRatio="16x9">
-									<embed src={`${videoUrl}`} />
+									<embed
+										src={
+											myVideo?.videoEmbedUrl
+												? myVideo.videoEmbedUrl
+												: video.videoEmbedUrl
+										}
+									/>
 								</Ratio>
+								<a
+									href={`${
+										myVideo?.videoFetchedUrl
+											? myVideo.videoFetchedUrl
+											: video.videoFetchedUrl
+									}`}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="btn btn-sm btn-link"
+								>
+									Original Video:
+									{myVideo?.videoFetchedUrl
+										? myVideo.videoFetchedUrl
+										: video.videoFetchedUrl}
+								</a>
 							</Tab>
-							<Tab eventKey="Thumbnails" title="Thumbnails">
-								{thumbnails?.length > 0 ? (
+							<Tab eventKey={`thumbnails`} title="Thumbnails">
+								{myVideo?.thumbnails?.length > 0 ? (
 									<Carousel>
-										{thumbnails.map((thumbnail, index) => (
+										{myVideo?.thumbnails.map((thumbnail, index) => (
+											<Carousel.Item key={index}>
+												<img src={`${thumbnail}`} className="d-block w-100" />
+											</Carousel.Item>
+										))}
+									</Carousel>
+								) : video?.thumbnails?.length > 0 ? (
+									<Carousel>
+										{video?.thumbnails.map((thumbnail, index) => (
 											<Carousel.Item key={index}>
 												<img src={`${thumbnail}`} className="d-block w-100" />
 											</Carousel.Item>
@@ -43,10 +72,10 @@ const SplitView = ({ videoUrl, thumbnails, objects }) => {
 						</Tabs>
 					</Col>
 					<Col xl={6}>
-						<Card>
-							{objects.length > 0 ? (
+						<Card className="list-container">
+							{objects?.length > 0 ? (
 								<ListGroup variant="flush">
-									{objects.map((video, index) => (
+									{objects?.map((video, index) => (
 										<ListGroup.Item key={`${video._id}`}>
 											<p className="h6">
 												<Link

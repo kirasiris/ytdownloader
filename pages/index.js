@@ -45,9 +45,7 @@ const Home = ({
 	paramsObject,
 	router,
 }) => {
-	const [video_url, setVideoUrl] = useState(
-		`https://www.youtube.com/embed/mK7lDooAGJw`
-	);
+	const [myVideo, setMyVideo] = useState(null);
 	const [videos, setVideos] = useState(serverVideos);
 
 	useEffect(() => {
@@ -57,11 +55,15 @@ const Home = ({
 	return (
 		<Layout title={`Get Started`}>
 			<FormJumbotron
-				videoUrl={video_url}
-				setUrl={setVideoUrl}
+				setObject={setMyVideo}
 				setObjects={setVideos}
+				objects={videos}
 			/>
-			<SplitView videoUrl={video_url} objects={videos} />
+			<SplitView
+				myVideo={myVideo !== null && myVideo !== undefined && myVideo}
+				video={myVideo !== null && myVideo !== undefined && myVideo}
+				objects={videos}
+			/>
 		</Layout>
 	);
 };
