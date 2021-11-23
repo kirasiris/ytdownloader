@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { withRouter } from "next/router";
+import Head from "next/head";
 // ACTIONS
 import { getYouTubes, getYouTube } from "@/actions/youtube";
 // HELPERS
@@ -72,6 +73,12 @@ const Video = ({
 			updatedAt={`${video.updatedAt}`}
 			// postImage={`${job.producer.avatar}`}
 		>
+			<Head>
+				{video.keywords.length > 0 &&
+					video.keywords.map((keyword, index) => (
+						<meta property={`article:tag`} key={index} content={`${keyword}`} />
+					))}
+			</Head>
 			<FormJumbotron
 				setObject={setMyVideo}
 				setObjects={setVideos}
