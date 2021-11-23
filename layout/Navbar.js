@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Image from "next/image";
 import Nav from "react-bootstrap/Nav";
 import { APP_NAME, KEVINFONSECA_URL } from "@/config";
+import ContactFormModal from "./ContactFormModal";
 
 const Menu = () => {
 	return (
@@ -29,6 +30,7 @@ const Menu = () => {
 						>
 							About Author
 						</a>
+						<ContactFormModal as={`button`} />
 					</Nav>
 				</Navbar.Collapse>
 			</Container>

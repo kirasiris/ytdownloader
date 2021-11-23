@@ -16,7 +16,19 @@ const JumbotronHeader = () => {
 				<p>
 					Even tho using this website is totally free, there's a limit that once
 					reached you will need to wait at least 30mins before being able to
-					dowload again. That's on YouTube's policy, not me!
+					dowload again. That's on{" "}
+					<a
+						href="https://github.com/fent/node-ytdl-core#limitations"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						YouTube's policy
+					</a>
+					, not me!
+				</p>
+				<p>
+					As mentioned in the GitHub page, each link <b>ONLY</b> last about
+					6hrs!
 				</p>
 			</Container>
 		</div>

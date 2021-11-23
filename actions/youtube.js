@@ -7,7 +7,7 @@ import api from "@/helpers/api";
 // @status  DONE
 export const getYouTubes = (params) => async (dispatch) => {
 	try {
-		const res = await api.get(`/youtube${params}`);
+		const res = await api.get(`/extras/youtube${params}`);
 
 		return res.data;
 	} catch (err) {
@@ -36,7 +36,7 @@ export const getYouTubes = (params) => async (dispatch) => {
 // @status  DONE
 export const getYouTube = (id, videoid) => async (dispatch) => {
 	try {
-		const res = await api.get(`/youtube/${id}/${videoid}`);
+		const res = await api.get(`/extras/youtube/${id}/${videoid}`);
 
 		return res.data;
 	} catch (err) {
@@ -65,7 +65,7 @@ export const getYouTube = (id, videoid) => async (dispatch) => {
 // @task        DONE
 export const createYouTube = (formData) => async (dispatch) => {
 	try {
-		const res = await api.post(`/youtube/getinfo`, formData);
+		const res = await api.post(`/extras/youtube/getinfo`, formData);
 		toast.success("Item created");
 		return res.data;
 	} catch (err) {
