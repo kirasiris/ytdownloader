@@ -30,6 +30,14 @@ const JumbotronHeader = () => {
 					As mentioned in the GitHub page, each link <b>ONLY</b> last about
 					6hrs!
 				</p>
+				<p>
+					Make sure to save each file according to the format you wish to play
+					it in your device. All of the links download the files as webapp,
+					rename them to <i>NAME</i>
+					<b>.mp3</b> or <i>NAME</i>
+					<b>.mp4</b>
+				</p>
+				<p>All the data gets automatically deleted on the 15 of each month!.</p>
 			</Container>
 		</div>
 	);

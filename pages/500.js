@@ -1,7 +1,7 @@
 import { withRouter } from "next/router";
 import Link from "next/link";
 
-const my404 = ({ statusCode, router }) => {
+const my500 = ({ statusCode, router }) => {
 	const handlePrev = async (e) => {
 		e.preventDefault();
 		router.back();
@@ -28,9 +28,9 @@ const my404 = ({ statusCode, router }) => {
 		</section>
 	);
 };
-my404.getStaticProps = ({ res, err }) => {
+my500.getStaticProps = ({ res, err }) => {
 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
 	return { statusCode };
 };
 
-export default withRouter(my404);
+export default withRouter(my500);

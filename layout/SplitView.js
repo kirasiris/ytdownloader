@@ -14,6 +14,7 @@ import Tab from "react-bootstrap/Tab";
 import Carousel from "react-bootstrap/Carousel";
 import Ratio from "react-bootstrap/Ratio";
 import DownloadsModal from "@/layout/DownloadsModal";
+import { CountDownTimer } from "@/helpers/utilities";
 
 const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 	return (
@@ -100,6 +101,12 @@ const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 												<Button type="button" variant="light" size="sm">
 													<i className="fas fa-eye me-1" />
 													{video.views}
+												</Button>
+												<Button type="button" variant="light" size="sm">
+													<i className="fas fa-clock me-1" />
+													Time left:
+													{/* {CountDownTimer(video.createdAt, "countdown")} */}
+													<div id="countdown"></div>
 												</Button>
 											</ButtonGroup>
 											<audio controls style={{ backgroundColor: "#f1f3f4" }}>
