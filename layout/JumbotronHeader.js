@@ -32,8 +32,8 @@ const JumbotronHeader = () => {
 				</p>
 				<p>
 					Make sure to save each file according to the format you wish to play
-					it in your device. All of the links download the files as webapp,
-					rename them to <i>NAME</i>
+					it in your device. All of the links download the files as WEBA, rename
+					them to <i>NAME</i>
 					<b>.mp3</b> or <i>NAME</i>
 					<b>.mp4</b>
 				</p>
