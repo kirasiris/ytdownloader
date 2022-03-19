@@ -14,7 +14,6 @@ import Tab from "react-bootstrap/Tab";
 import Carousel from "react-bootstrap/Carousel";
 import Ratio from "react-bootstrap/Ratio";
 import DownloadsModal from "@/layout/DownloadsModal";
-import { CountDownTimer } from "@/helpers/utilities";
 
 const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 	return (

@@ -2,6 +2,10 @@
 
 ![ytdownloader - An actual good YouTube videos downloader, totally for free!.](screenshot.png)
 
+[![wakatime](https://wakatime.com/badge/github/kirasiris/ytdownloader.svg)](https://wakatime.com/badge/github/kirasiris/ytdownloader)
+Time Spent in a Project over all time
+[![wakatime](https://wakatime.com/badge/user/684e12ee-ee44-4f33-8d51-0e2cd1e90dab/project/1f2c669c-5b9a-427d-a2a0-a2c0af27e362.svg)](https://wakatime.com/badge/user/684e12ee-ee44-4f33-8d51-0e2cd1e90dab/project/1f2c669c-5b9a-427d-a2a0-a2c0af27e362)
+
 ################################################################################################################################################################################
 
 ## Important

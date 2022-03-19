@@ -14,15 +14,15 @@ const JumbotronHeader = () => {
 					triggering the More button
 				</p>
 				<p>
-					Even tho using this website is totally free, there's a limit that once
-					reached you will need to wait at least 30mins before being able to
-					dowload again. That's on{" "}
+					Even tho using this website is totally free, there&apos;s a limit that
+					once reached you will need to wait at least 30mins before being able
+					to dowload again. That&apos;s on{" "}
 					<a
 						href="https://github.com/fent/node-ytdl-core#limitations"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						YouTube's policy
+						YouTube&apos;s policy
 					</a>
 					, not me!
 				</p>
@@ -37,6 +37,15 @@ const JumbotronHeader = () => {
 					<b>.mp3</b> or <i>NAME</i>
 					<b>.mp4</b>
 				</p>
+				<h3 className="display-6 fw-bold">
+					Videos are now downloaded to your Windows <code>Downloads</code>{" "}
+					folder. However not all videos are going to contain audio; thats on
+					the video itself, nothing that I could do!
+				</h3>
+				<h4>
+					However, not all videos contain audio. That&apos;s on the video itself
+					not on me
+				</h4>
 				<p>All the data gets automatically deleted on the 15 of each month!.</p>
 			</Container>
 		</div>
