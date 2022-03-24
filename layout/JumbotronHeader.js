@@ -42,10 +42,6 @@ const JumbotronHeader = () => {
 					folder. However not all videos are going to contain audio; thats on
 					the video itself, nothing that I could do!
 				</h3>
-				<h4>
-					However, not all videos contain audio. That&apos;s on the video itself
-					not on me
-				</h4>
 				<p>All the data gets automatically deleted on the 15 of each month!.</p>
 			</Container>
 		</div>
