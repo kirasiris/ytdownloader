@@ -27,16 +27,16 @@ const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 									<embed
 										src={
 											myVideo?.videoEmbedUrl
-												? myVideo.videoEmbedUrl
-												: video.videoEmbedUrl
+												? myVideo?.videoEmbedUrl
+												: video?.videoEmbedUrl
 										}
 									/>
 								</Ratio>
 								<a
 									href={`${
 										myVideo?.videoFetchedUrl
-											? myVideo.videoFetchedUrl
-											: video.videoFetchedUrl
+											? myVideo?.videoFetchedUrl
+											: video?.videoFetchedUrl
 									}`}
 									target="_blank"
 									rel="noopener noreferrer"
@@ -44,8 +44,8 @@ const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 								>
 									Original Video:
 									{myVideo?.videoFetchedUrl
-										? myVideo.videoFetchedUrl
-										: video.videoFetchedUrl}
+										? myVideo?.videoFetchedUrl
+										: video?.videoFetchedUrl}
 								</a>
 							</Tab>
 							<Tab eventKey={`thumbnails`} title="Thumbnails">
@@ -76,40 +76,40 @@ const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 							{objects?.length > 0 ? (
 								<ListGroup variant="flush">
 									{objects?.map((video, index) => (
-										<ListGroup.Item key={`${video._id}`}>
+										<ListGroup.Item key={`${video?._id}`}>
 											<p className="h6">
 												<Link
-													href={`/videos/${video._id}/${video.videoId}/${video.slug}`}
+													href={`/videos/${video?._id}/${video?.videoId}/${video?.slug}`}
 												>
-													{`${video.title}-${video.videoId}`}
+													{`${video?.title}-${video?.videoId}`}
 												</Link>
 											</p>
 											<ButtonGroup className="mb-2">
 												<Button type="button" variant="light" size="sm">
 													<i className="fas fa-thumbs-up me-1" />
-													{video.likes}
+													{video?.likes}
 												</Button>
 												<Button type="button" variant="light" size="sm">
 													<i className="fas fa-thumbs-down me-1" />
-													{video.dislikes}
+													{video?.dislikes}
 												</Button>
 												<Button type="button" variant="light" size="sm">
 													<i className="fas fa-tag me-1" />
-													{video.category}
+													{video?.category}
 												</Button>
 												<Button type="button" variant="light" size="sm">
 													<i className="fas fa-eye me-1" />
-													{video.views}
+													{video?.views}
 												</Button>
 												<Button type="button" variant="light" size="sm">
 													<i className="fas fa-clock me-1" />
 													Time left:
-													{/* {CountDownTimer(video.createdAt, "countdown")} */}
+													{/* {CountDownTimer(video?.createdAt, "countdown")} */}
 													<div id="countdown"></div>
 												</Button>
 											</ButtonGroup>
 											<audio controls style={{ backgroundColor: "#f1f3f4" }}>
-												<source src={`${video.audioOnly.url}`} />
+												<source src={`${video?.audioOnly.url}`} />
 											</audio>
 											<DownloadsModal video={video} />
 										</ListGroup.Item>

@@ -13,7 +13,7 @@ const DownloadsModal = ({ video }) => {
 	return (
 		<>
 			<a
-				href={`${video.videoToDownload.url}`}
+				href={`${video?.videoToDownload.url}`}
 				className={`btn btn-sm btn-dark`}
 				download
 				rel="noopener noreferrer"
@@ -40,13 +40,13 @@ const DownloadsModal = ({ video }) => {
 					<h1 className="display-6">Download Options</h1>
 				</Modal.Header>
 				<Modal.Body>
-					{video.text}
+					{video?.text}
 					<hr />
 					<h2 className="display-6">More downloading options below:</h2>
 					<ButtonGroup>
 						<>
 							<a
-								href={`${video.videoOnly.url}`}
+								href={`${video?.videoOnly.url}`}
 								className={`btn btn-sm btn-dark`}
 								download
 								rel="noopener noreferrer"
@@ -54,7 +54,7 @@ const DownloadsModal = ({ video }) => {
 								Download Video ONLY
 							</a>
 							<a
-								href={`${video.audioOnly.url}`}
+								href={`${video?.audioOnly.url}`}
 								className={`btn btn-sm btn-dark`}
 								download
 								rel="noopener noreferrer"
