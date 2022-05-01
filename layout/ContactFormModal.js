@@ -167,6 +167,14 @@ const ContactFormModal = ({
 								size={`sm`}
 								className={`float-left mt-4`}
 								type={`submit`}
+								disabled={
+									name.length > 0 &&
+									email.length > 0 &&
+									subject.length > 0 &&
+									text.length > 0
+										? !true
+										: !false
+								}
 							>
 								Send
 							</Button>
