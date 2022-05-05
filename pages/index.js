@@ -33,20 +33,9 @@ export const getServerSideProps = async (context) => {
 	};
 };
 
-const Home = ({
-	params,
-	serverVideos,
-	totalDocuments,
-	totalPages,
-	totalResults,
-	page,
-	next,
-	prev,
-	paramsObject,
-	router,
-}) => {
+const Home = ({ params, serverVideos }) => {
 	const [myVideo, setMyVideo] = useState(null);
-	const [videos, setVideos] = useState(serverVideos);
+	const [videos, setVideos] = useState([]);
 
 	useEffect(() => {
 		setVideos(serverVideos);
@@ -63,6 +52,7 @@ const Home = ({
 				myVideo={myVideo !== null && myVideo !== undefined && myVideo}
 				video={myVideo !== null && myVideo !== undefined && myVideo}
 				objects={videos}
+				setObjects={setVideos}
 			/>
 		</Layout>
 	);

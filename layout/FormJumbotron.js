@@ -43,6 +43,7 @@ const FormJumbotron = ({ setObject, setObjects, objects }) => {
 	const resetForm = () => {
 		setVideoData({
 			video_url: ``,
+			download_video: false,
 		});
 	};
 

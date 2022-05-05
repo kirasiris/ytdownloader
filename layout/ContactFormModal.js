@@ -80,7 +80,7 @@ const ContactFormModal = ({
 				as={as}
 				className={classStr}
 			>
-				<i className={`fas fa-exclamation-triangle me-1`} />
+				<i className={`fas fa-exclamation-triangle me-1`} aria-hidden />
 				Contact
 			</Button>
 			{cmodal && (
