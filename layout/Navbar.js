@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Image from "next/image";
@@ -22,14 +23,9 @@ const Menu = () => {
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				<Navbar.Collapse id="responsive-navbar-nav">
 					<Nav>
-						<a
-							href={`${KEVINFONSECA_URL}`}
-							className="nav-link"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							About Author
-						</a>
+						<Link href="/about" passHref>
+							<a className="nav-link">About</a>
+						</Link>
 						<ContactFormModal as={`button`} />
 					</Nav>
 				</Navbar.Collapse>
