@@ -1,25 +1,34 @@
 import Link from "next/link";
+import Router from "next/router";
+import NProgress from "nprogress";
+import "../node_modules/nprogress/nprogress.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Image from "next/image";
 import Nav from "react-bootstrap/Nav";
-import { APP_NAME, KEVINFONSECA_URL } from "@/config";
+import { APP_NAME } from "@/config";
 import ContactFormModal from "./ContactFormModal";
+
+Router.onRouteChangeStart = (url) => NProgress.start();
+Router.onRouteChangeComplete = (url) => NProgress.done();
+Router.onRouteChangeError = (url) => NProgress.done();
 
 const Menu = () => {
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 			<Container fluid>
-				<Navbar.Brand href="/" className="pt-0">
-					<Image
-						alt=""
-						src="/logo.svg"
-						width="30"
-						height="30"
-						className="d-inline-block align-top"
-					/>
-					{APP_NAME}
-				</Navbar.Brand>
+				<Link href="/" passHref>
+					<a className="pt-0 navbar-brand">
+						<Image
+							alt=""
+							src="/logo.svg"
+							width="30"
+							height="30"
+							className="d-inline-block align-top"
+						/>
+						{APP_NAME}
+					</a>
+				</Link>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				<Navbar.Collapse id="responsive-navbar-nav">
 					<Nav>

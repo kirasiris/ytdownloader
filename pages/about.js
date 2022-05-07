@@ -21,9 +21,8 @@ const About = () => {
 			cssLink={`https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css`}
 		>
 			<div className="container-fluid">
-				<Row className="mt-3">
+				<Row>
 					<Col xl={`12`}>
-						<h1>Mind to donate?</h1>
 						<Carousel style={{ position: "sticky" }}>
 							<Carousel.Item key={1}>
 								<UseImage
@@ -65,7 +64,7 @@ const About = () => {
 					</Col>
 				</Row>
 				<hr />
-				<Row className="text-center d-none d-sm-none d-md-none d-lg-flex dm-xl-flex">
+				<Row className="text-center d-lg-flex dm-xl-flex">
 					<Col xl={`4`}>
 						<a
 							href="https://www.paypal.com/paypalme/kirasiris"

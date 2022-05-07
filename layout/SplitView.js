@@ -15,24 +15,9 @@ import Tab from "react-bootstrap/Tab";
 import Carousel from "react-bootstrap/Carousel";
 import Ratio from "react-bootstrap/Ratio";
 import DownloadsModal from "@/layout/DownloadsModal";
+import { useEffect, useState } from "react";
 
-const SplitView = ({
-	myVideo = null,
-	video = null,
-	objects = [],
-	setObjects,
-}) => {
-	const handleSearch = async (e) => {
-		e.preventDefault();
-		let value = e.target.value.toLowerCase();
-		let result = [];
-
-		result = objects.filter((data) => {
-			return data.title.search(value) != -1;
-		});
-		await setObjects(result);
-	};
-
+const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 	return (
 		<div className="p-5 bg-light">
 			<Container fluid className="py-5">
@@ -89,15 +74,6 @@ const SplitView = ({
 						</Tabs>
 					</Col>
 					<Col xl={6}>
-						<div className="input-group mb-3">
-							<Form.Control
-								type={`text`}
-								placeholder={`Yet to be working...`}
-								name={`search_song`}
-								id={`search_song`}
-								onChange={handleSearch}
-							/>
-						</div>
 						<Card className="list-container">
 							{objects?.length > 0 ? (
 								<ListGroup variant="flush">
