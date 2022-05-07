@@ -4,7 +4,7 @@ module.exports = {
 		WEBSITE_DESCRIPTION:
 			"An actual good YouTube videos downloader, totally for free!.",
 		WEBSITE_NAME_HTTP_STRING: "ytdownloader",
-		PRODUCTION: false, // True when in public domain and False when in local domain
+		PRODUCTION: true, // True when in public domain and False when in local domain
 	},
 	images: {
 		domains: [
