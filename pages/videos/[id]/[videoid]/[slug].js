@@ -71,7 +71,7 @@ const Video = ({
 			posType={`post`}
 			createdAt={`${video.createdAt}`}
 			updatedAt={`${video.updatedAt}`}
-			// postImage={`${job.producer.avatar}`}
+			postImage={`${video.thumbnails[video.thumbnails.length - 1]}`}
 		>
 			<Head>
 				{video.keywords.length > 0 &&
