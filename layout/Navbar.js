@@ -35,6 +35,9 @@ const Menu = () => {
 						<Link href="/about" passHref>
 							<a className="nav-link">About</a>
 						</Link>
+						<Link href="/blogs" passHref>
+							<a className="nav-link">Blog</a>
+						</Link>
 						<ContactFormModal as={`button`} />
 					</Nav>
 				</Navbar.Collapse>

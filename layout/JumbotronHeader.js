@@ -30,15 +30,9 @@ const JumbotronHeader = () => {
 					As mentioned in the GitHub page, each link <b>ONLY</b> last about
 					6hrs!
 				</p>
-				<p>
-					Make sure to save each file according to the format you wish to play
-					it in your device. All of the links download the files as WEBA, rename
-					them to <i>NAME</i>
-					<b>.mp3</b> or <i>NAME</i>
-					<b>.mp4</b>
-				</p>
+
 				<h3 className="display-6 fw-bold">
-					Videos are now downloaded to your Windows <code>Downloads</code>{" "}
+					Videos are now downloaded to your Windows OS <code>Downloads</code>{" "}
 					folder. However not all videos are going to contain audio; thats on
 					the video itself, nothing that I could do!
 				</h3>

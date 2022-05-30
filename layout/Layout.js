@@ -30,6 +30,7 @@ const Layout = ({
 	cssInline,
 	jsLink,
 	children,
+	jumbotronHeading = true,
 }) => {
 	return (
 		<>
@@ -126,7 +127,8 @@ const Layout = ({
 			</Head>
 			<Menu />
 			<main>
-				<JumbotronHeader />
+				{jumbotronHeading && <JumbotronHeader />}
+
 				{children}
 			</main>
 			<Footer />

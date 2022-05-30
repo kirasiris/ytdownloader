@@ -19,6 +19,7 @@ const About = () => {
 		<Layout
 			title={`About`}
 			cssLink={`https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css`}
+			jumbotronHeading={false}
 		>
 			<div className="container-fluid">
 				<Row>

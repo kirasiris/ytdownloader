@@ -8,3 +8,5 @@ export const PUBLIC_URL = process.env.PRODUCTION
 	? "https://ytdownloader-phi.vercel.app"
 	: "http://localhost:3000";
 export const KEVINFONSECA_URL = "https://kevinurielfonseca.me/";
+export const KEVINFONSECA_API_URL =
+	"https://kevinurielfonseca.me/wp-json/wp/v2";
