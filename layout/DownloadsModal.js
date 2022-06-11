@@ -18,7 +18,7 @@ const DownloadsModal = ({ video }) => {
 				download
 				rel="noopener noreferrer"
 			>
-				Download
+				Download Video
 			</a>
 			<Button
 				type="button"

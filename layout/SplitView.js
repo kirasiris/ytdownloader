@@ -15,7 +15,6 @@ import Tab from "react-bootstrap/Tab";
 import Carousel from "react-bootstrap/Carousel";
 import Ratio from "react-bootstrap/Ratio";
 import DownloadsModal from "@/layout/DownloadsModal";
-import { useEffect, useState } from "react";
 
 const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 	return (
