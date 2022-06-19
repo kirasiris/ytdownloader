@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 // ACTIONS
 // HELPERS
@@ -17,6 +18,29 @@ import Ratio from "react-bootstrap/Ratio";
 import DownloadsModal from "@/layout/DownloadsModal";
 
 const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
+	const [keyword, setKeyword] = useState("");
+	const [list, setList] = useState([]);
+
+	useEffect(() => {
+		setList(objects);
+	}, [objects]);
+
+	useEffect(() => {
+		if (keyword !== "") {
+			const result = objects.filter((object) => {
+				return object.title.toLowerCase().startsWith(keyword.toLowerCase());
+			});
+			setList(result);
+		} else {
+			setList(objects);
+		}
+	}, [keyword]);
+
+	const handleChange = () => (e) => {
+		e.preventDefault();
+		setKeyword(e.target.value);
+	};
+
 	return (
 		<div className="p-5 bg-light">
 			<Container fluid className="py-5">
@@ -73,10 +97,26 @@ const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 						</Tabs>
 					</Col>
 					<Col xl={6}>
+						<Form.Control
+							type="text"
+							placeholder="Search..."
+							name="keyword"
+							id="keyword"
+							onChange={handleChange("keyword")}
+							value={keyword}
+							className="mb-3"
+						/>
+						{list.length > 0 && (
+							<>
+								<hr />
+								<h2>Videos found ({list.length})...</h2>
+								<hr />
+							</>
+						)}
 						<Card className="list-container">
-							{objects?.length > 0 ? (
+							{list?.length > 0 ? (
 								<ListGroup variant="flush">
-									{objects?.map((video, index) => (
+									{list?.map((video, index) => (
 										<ListGroup.Item key={`${video?._id}`}>
 											<p className="h6">
 												<Link
@@ -110,7 +150,7 @@ const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
 												</Button>
 											</ButtonGroup>
 											<audio controls style={{ backgroundColor: "#f1f3f4" }}>
-												<source src={`${video?.audioOnly.url}`} />
+												<source src={`${video?.audioOnly?.url}`} />
 											</audio>
 											<DownloadsModal video={video} />
 										</ListGroup.Item>

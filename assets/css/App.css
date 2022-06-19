@@ -19,6 +19,57 @@ audio {
 }
 
 /*****************************
+BODY-DARK
+*****************************/
+body.light-mode {
+	background-color: #fff;
+	
+}
+
+body.dark-mode {
+	background-color: #222;
+	color: #fff;
+}
+
+body.dark-mode .card {
+	background-color: transparent;
+	
+}
+
+body.dark-mode .modal-content, body.dark-mode .btn-dark, body.dark-mode .card-body {
+	background-color: #222;
+}
+
+body.dark-mode .bg-light {
+	background-color: transparent !important;
+}
+
+body.dark-mode .btn-light {
+	color: #fff;
+	background-color: transparent;
+}
+
+body.dark-mode a, body.dark-mode .btn-link {
+	color: #d63384;
+}
+
+body.dark-mode a:hover, body.dark-mode .btn-link:hover {
+	color: #ff007f;
+}
+
+body.dark-mode  .form-jumbotron {
+	background-color: #212529;
+}
+
+body.dark-mode  footer {
+	background-color: #212529;
+}
+
+body.dark-mode .list-group-item {
+	background-color: #212529;
+}
+
+/*****************************
 MAIN APPLICATION
 *****************************/
 .main-container {

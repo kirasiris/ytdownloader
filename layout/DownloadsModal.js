@@ -46,7 +46,7 @@ const DownloadsModal = ({ video }) => {
 					<ButtonGroup>
 						<>
 							<a
-								href={`${video?.videoOnly.url}`}
+								href={`${video?.videoOnly?.url}`}
 								className={`btn btn-sm btn-dark`}
 								download
 								rel="noopener noreferrer"
@@ -54,7 +54,7 @@ const DownloadsModal = ({ video }) => {
 								Download Video ONLY
 							</a>
 							<a
-								href={`${video?.audioOnly.url}`}
+								href={`${video?.audioOnly?.url}`}
 								className={`btn btn-sm btn-dark`}
 								download
 								rel="noopener noreferrer"

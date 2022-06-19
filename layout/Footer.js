@@ -1,9 +1,16 @@
 import Link from "next/link";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
+import useDarkMode from "use-dark-mode";
 import { APP_NAME, KEVINFONSECA_URL } from "@/config";
 
 const Footer = () => {
+	const darkMode = useDarkMode(false, {
+		classNameDark: "dark-mode",
+		classNameLight: "light-mode",
+		element: typeof window !== "undefined" && document.body,
+		storageKey: "darkMode",
+	});
 	return (
 		<footer className="align-items-center d-flex flex-wrap justify-content-between py-3">
 			<Container fluid>
@@ -13,6 +20,7 @@ const Footer = () => {
 							{APP_NAME}
 						</a>
 					</Link>
+
 					<span className="text-muted">
 						<i className="fa fa-code me-1" id="fa-code" aria-hidden="true" />
 						made with
@@ -31,6 +39,18 @@ const Footer = () => {
 							Kevin
 						</a>
 					</span>
+					<div className="custom-control custom-switch">
+						<input
+							type="checkbox"
+							className="custom-control-input"
+							id="dmcheck"
+							checked={darkMode.value}
+							onChange={darkMode.toggle}
+						/>
+						<label className="custom-control-label" htmlFor="dmcheck">
+							<i className={`far fa-moon`} aria-hidden />
+						</label>
+					</div>
 				</Col>
 			</Container>
 		</footer>

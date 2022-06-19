@@ -48,7 +48,7 @@ const FormJumbotron = ({ setObject, setObjects, objects }) => {
 	};
 
 	return (
-		<div className="p-5">
+		<div className="p-5 form-jumbotron">
 			<Container fluid className="py-5">
 				<Form onSubmit={initLookOut} className="w-100">
 					<Row>
