@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 // ACTIONS
 // HELPERS
@@ -17,7 +17,7 @@ import Carousel from "react-bootstrap/Carousel";
 import Ratio from "react-bootstrap/Ratio";
 import DownloadsModal from "@/layout/DownloadsModal";
 
-const SplitView = ({ myVideo = null, video = null, objects = [] }) => {
+const SplitView = ({ myVideo = null, video = null, objects = [], router }) => {
 	const [keyword, setKeyword] = useState("");
 	const [list, setList] = useState([]);
 

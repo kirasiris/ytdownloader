@@ -1,3 +1,4 @@
+import { withRouter } from "next/router";
 import { useEffect } from "react";
 import GitHubCalendar from "github-calendar";
 // ACTIONS
@@ -10,8 +11,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Carousel from "react-bootstrap/Carousel";
 import Card from "react-bootstrap/Card";
+import BreadCrumbs from "@/layout/BreadCrumbs";
 
-const About = () => {
+const About = ({ router }) => {
 	useEffect(() => {
 		GitHubCalendar(".calendar", "kirasiris");
 	}, []);
@@ -22,6 +24,7 @@ const About = () => {
 			jumbotronHeading={false}
 		>
 			<div className="container-fluid">
+				<BreadCrumbs router={router} />
 				<Row>
 					<Col xl={`12`}>
 						<Carousel style={{ position: "sticky" }}>
@@ -125,4 +128,4 @@ const About = () => {
 	);
 };
 
-export default About;
+export default withRouter(About);

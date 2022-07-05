@@ -6,10 +6,9 @@ import { getWordPressPosts } from "@/actions/wordpress";
 import Layout from "@/layout/Layout";
 import NothingFoundAlert from "@/layout/NothingFoundAlert";
 import UseImage from "@/layout/UseImage";
-// REACTBOOTSTRAP
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
-// NESTED COMPONENTS
+import BreadCrumbs from "@/layout/BreadCrumbs";
 
 export const getServerSideProps = async (context) => {
 	const params = `?categories=723328056&page=1&per_page=10`;
@@ -36,6 +35,7 @@ const Blogs = ({ params, serverWordPressListingPosts, router }) => {
 			jumbotronHeading={false}
 		>
 			<div className={`container mt-3`}>
+				<BreadCrumbs router={router} />
 				<Row>
 					<div className="container">
 						{serverWordPressListingPosts?.length > 0 ? (

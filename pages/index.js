@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { withRouter } from "next/router";
-import ip from "ip";
 // ACTIONS
 import { getYouTubes } from "@/actions/youtube";
 // HELPERS
@@ -33,7 +32,7 @@ export const getServerSideProps = async (context) => {
 	};
 };
 
-const Home = ({ params, serverVideos }) => {
+const Home = ({ params, serverVideos, router }) => {
 	const [myVideo, setMyVideo] = useState(null);
 	const [videos, setVideos] = useState([]);
 
@@ -48,11 +47,13 @@ const Home = ({ params, serverVideos }) => {
 				setObjects={setVideos}
 				objects={videos}
 			/>
+
 			<SplitView
 				myVideo={myVideo !== null && myVideo !== undefined && myVideo}
 				video={myVideo !== null && myVideo !== undefined && myVideo}
 				objects={videos}
 				setObjects={setVideos}
+				router={router}
 			/>
 		</Layout>
 	);

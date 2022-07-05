@@ -6,8 +6,8 @@ import { PUBLIC_URL } from "@/config";
 import Layout from "@/layout/Layout";
 import Row from "react-bootstrap/Row";
 import UseImage from "@/layout/UseImage";
-// NESTED COMPONENTS
 import Sidebar from "@/layout/Sidebar";
+import BreadCrumbs from "@/layout/BreadCrumbs";
 
 export const getServerSideProps = async (context) => {
 	const params = `${context.query.id}`;
@@ -97,6 +97,7 @@ const SingleBlog = ({
 				<Row>
 					{serverWordPressPost.template === `template-full-width.php` ? (
 						<div className="container-fluid">
+							<BreadCrumbs router={router} />
 							<a
 								href={`${serverWordPressPost.link}`}
 								target="_blank"
@@ -116,6 +117,16 @@ const SingleBlog = ({
 					) : (
 						<>
 							<div className="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+								<BreadCrumbs router={router} />
+								<a
+									href={`${serverWordPressPost.link}`}
+									target="_blank"
+									rel="noreferrer noopener"
+									className="btn btn-sm btn-danger btn-block"
+								>
+									Read original post
+								</a>
+								<hr />
 								<div
 									dangerouslySetInnerHTML={{
 										__html: serverWordPressPost.content.rendered,
