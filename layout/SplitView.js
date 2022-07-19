@@ -116,45 +116,58 @@ const SplitView = ({ myVideo = null, video = null, objects = [], router }) => {
 						<Card className="list-container">
 							{list?.length > 0 ? (
 								<ListGroup variant="flush">
-									{list?.map((video, index) => (
-										<ListGroup.Item key={`${video?._id}`}>
-											<p className="h6">
-												<Link
-													href={`/videos/${video?._id}/${video?.videoId}/${video?.slug}`}
-												>
-													{`${video?.title}-${video?.videoId}`}
-												</Link>
-											</p>
-											<ButtonGroup className="mb-2">
-												<Button type="button" variant="light" size="sm">
-													<i aria-hidden className="fas fa-thumbs-up me-1" />
-													{video?.likes}
-												</Button>
-												<Button type="button" variant="light" size="sm">
-													<i aria-hidden className="fas fa-thumbs-down me-1" />
-													{video?.dislikes}
-												</Button>
-												<Button type="button" variant="light" size="sm">
-													<i aria-hidden className="fas fa-tag me-1" />
-													{video?.category}
-												</Button>
-												<Button type="button" variant="light" size="sm">
-													<i aria-hidden className="fas fa-eye me-1" />
-													{video?.views}
-												</Button>
-												<Button type="button" variant="light" size="sm">
-													<i aria-hidden className="fas fa-clock me-1" />
-													Time left:
-													{/* {CountDownTimer(video?.createdAt, "countdown")} */}
-													<div id="countdown"></div>
-												</Button>
-											</ButtonGroup>
-											<audio controls style={{ backgroundColor: "#f1f3f4" }}>
-												<source src={`${video?.audioOnly?.url}`} />
-											</audio>
-											<DownloadsModal video={video} />
-										</ListGroup.Item>
-									))}
+									{list?.map(
+										(video, index) =>
+											video !== undefined &&
+											video !== null && (
+												<ListGroup.Item key={`${video?._id}`}>
+													<p className="h6">
+														<Link
+															href={`/videos/${video?._id}/${video?.videoId}/${video?.slug}`}
+														>
+															{`${video?.title}-${video?.videoId}`}
+														</Link>
+													</p>
+													<ButtonGroup className="mb-2">
+														<Button type="button" variant="light" size="sm">
+															<i
+																aria-hidden
+																className="fas fa-thumbs-up me-1"
+															/>
+															{video?.likes}
+														</Button>
+														<Button type="button" variant="light" size="sm">
+															<i
+																aria-hidden
+																className="fas fa-thumbs-down me-1"
+															/>
+															{video?.dislikes}
+														</Button>
+														<Button type="button" variant="light" size="sm">
+															<i aria-hidden className="fas fa-tag me-1" />
+															{video?.category}
+														</Button>
+														<Button type="button" variant="light" size="sm">
+															<i aria-hidden className="fas fa-eye me-1" />
+															{video?.views}
+														</Button>
+														<Button type="button" variant="light" size="sm">
+															<i aria-hidden className="fas fa-clock me-1" />
+															Time left:
+															{/* {CountDownTimer(video?.createdAt, "countdown")} */}
+															<div id="countdown"></div>
+														</Button>
+													</ButtonGroup>
+													<audio
+														controls
+														style={{ backgroundColor: "#f1f3f4" }}
+													>
+														<source src={`${video?.audioOnly?.url}`} />
+													</audio>
+													<DownloadsModal video={video} />
+												</ListGroup.Item>
+											)
+									)}
 								</ListGroup>
 							) : (
 								<Alert variant={`danger`} className="m-0 rounded-0">
