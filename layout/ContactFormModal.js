@@ -141,7 +141,7 @@ const ContactFormModal = ({
 								onChange={handleChange("subject")}
 								required
 							>
-								<option vlaue={`suggestion`}>Suggestion</option>
+								<option value={`suggestion`}>Suggestion</option>
 								<option value={`bug`}>Bug</option>
 								<option value={`review`}>Review</option>
 								<option value={`greetings`}>Greetings</option>
