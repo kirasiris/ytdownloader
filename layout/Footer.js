@@ -14,10 +14,8 @@ const Footer = () => {
 		<footer className="align-items-center d-flex flex-wrap justify-content-between py-3">
 			<Container fluid>
 				<Col md={4} className="align-items-center d-flex">
-					<Link href="/">
-						<a className="lh-1 me-1 text-decoration-none text-muted">
-							{process.env.NEXT_PUBLIC_WEBSITE_NAME}
-						</a>
+					<Link href="/" className="lh-1 me-1 text-decoration-none text-muted">
+						{process.env.NEXT_PUBLIC_WEBSITE_NAME}
 					</Link>
 
 					<span className="text-muted">

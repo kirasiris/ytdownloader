@@ -47,7 +47,15 @@ const Home = ({ params, serverVideos, router }) => {
 				setObjects={setVideos}
 				objects={videos}
 			/>
-
+			<pre>
+				<code>{process.env.NEXT_PUBLIC_KEVINFONSECA_API_URL}</code>
+				<br />
+				<code>{process.env.NEXT_PUBLIC_API_URL}</code>
+				<br />
+				<code>{process.env.NEXT_PUBLIC_FRONTEND_URL}</code>
+				<br />
+				<code>{process.env.NEXT_PUBLIC_PRODUCTION}</code>
+			</pre>
 			<SplitView
 				myVideo={myVideo !== null && myVideo !== undefined && myVideo}
 				video={myVideo !== null && myVideo !== undefined && myVideo}

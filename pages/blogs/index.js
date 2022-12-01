@@ -9,10 +9,44 @@ import UseImage from "@/layout/UseImage";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import BreadCrumbs from "@/layout/BreadCrumbs";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export const getServerSideProps = async (context) => {
 	const params = `?categories=723328056&page=1&per_page=10`;
 	const wordPressPostListing = (await getWordPressPosts(params)()) || [];
+
+	// const wordPressPostListing = async () => {
+	// 	try {
+	// 		const res = await axios.get(
+	// 			`${process.env.NEXT_PUBLIC_KEVINFONSECA_API_URL}/posts${params}`,
+	// 			{
+	// 				headers: {
+	// 					"Content-Type": "application/json",
+	// 				},
+	// 			}
+	// 		);
+
+	// 		return res.data;
+	// 	} catch (err) {
+	// 		// const error = err.response.data.message;
+	// 		const error = err?.response?.data?.error?.errors;
+	// 		const errors = err?.response?.data?.errors;
+
+	// 		if (error) {
+	// 			// dispatch(setAlert(error, 'danger'));
+	// 			error &&
+	// 				Object.entries(error).map(([, value]) => toast.error(value.message));
+	// 		}
+
+	// 		if (errors) {
+	// 			errors.forEach((error) => toast.error(error.msg));
+	// 		}
+
+	// 		toast.error(err?.response?.statusText);
+	// 		return { msg: err?.response?.statusText, status: err?.response?.status };
+	// 	}
+	// };
 
 	return {
 		props: {
@@ -39,7 +73,7 @@ const Blogs = ({ params, serverWordPressListingPosts, router }) => {
 				<Row>
 					<div className="container">
 						{serverWordPressListingPosts?.length > 0 ? (
-							serverWordPressListingPosts.map((wp, index) => (
+							serverWordPressListingPosts?.map((wp, index) => (
 								<article key={wp.id} className={`${wp.id} mb-3`}>
 									<Card>
 										<UseImage
@@ -53,7 +87,6 @@ const Blogs = ({ params, serverWordPressListingPosts, router }) => {
 												href={`/blogs/${
 													wp.id
 												}/${wp.category_name.toLowerCase()}/${wp.slug}`}
-												passHref
 											>
 												{wp.title.rendered}
 											</Link>
@@ -70,7 +103,6 @@ const Blogs = ({ params, serverWordPressListingPosts, router }) => {
 												href={`/blogs/${
 													wp.id
 												}/${wp.category_name.toLowerCase()}/${wp.slug}`}
-												passHref
 											>
 												Read more
 											</Link>

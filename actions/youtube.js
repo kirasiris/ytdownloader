@@ -8,7 +8,7 @@ import api from "@/helpers/api";
 export const getYouTubes = (params) => async (dispatch) => {
 	try {
 		const res = await api.get(`/extras/youtube${params}`);
-
+		console.log("action", res?.data);
 		return res.data;
 	} catch (err) {
 		// const error = err.response.data.message;

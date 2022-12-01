@@ -1,8 +1,6 @@
 import { useState } from "react";
 // ACTIONS
 // HELPERS
-import Tabs from "react-bootstrap/Tabs";
-import ListGroup from "react-bootstrap/ListGroup";
 import Modal from "react-bootstrap/Modal";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";

@@ -16,13 +16,15 @@ const my500 = ({ statusCode, router }) => {
 						? `An error ${statusCode} occurred on server`
 						: "An error occurred on client"}
 				</p>
-				<Link href={`/`} passHref>
-					<a className={`btn btn-sm btn-dark mr-1`}>Go Home!</a>
+				<Link href={`/`} className={`btn btn-sm btn-dark mr-1`}>
+					Go Home!
 				</Link>
-				<Link href={`#!`} passHref>
-					<a onClick={handlePrev} className={`btn btn-sm btn-dark`}>
-						Go Back!
-					</a>
+				<Link
+					href={`#!`}
+					onClick={handlePrev}
+					className={`btn btn-sm btn-dark`}
+				>
+					Go Back!
 				</Link>
 			</div>
 		</section>

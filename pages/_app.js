@@ -8,6 +8,7 @@ const MyApp = ({ Component, pageProps }) => {
 	return (
 		<SSRProvider>
 			<Component {...pageProps} />
+
 			<ToastContainer />
 		</SSRProvider>
 	);
