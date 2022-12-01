@@ -18,13 +18,13 @@ const Menu = () => {
 		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 			<Container fluid>
 				<Link href="/" className="pt-0 navbar-brand">
-					<Image
+					{/* <Image
 						alt=""
 						src="/logo.svg"
 						width="30"
 						height="30"
 						className="d-inline-block align-top"
-					/>
+					/> */}
 					{process.env.NEXT_PUBLIC_WEBSITE_NAME}
 				</Link>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
