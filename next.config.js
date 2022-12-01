@@ -1,10 +1,17 @@
 module.exports = {
 	env: {
-		WEBSITE_NAME: "YTDownloader",
-		WEBSITE_DESCRIPTION:
-			"An actual good YouTube videos downloader, totally for free!.",
-		WEBSITE_NAME_HTTP_STRING: "ytdownloader",
-		PRODUCTION: true, // True when in public domain and False when in local domain
+		NEXT_PUBLIC_WEBSITE_NAME: process.env.WEBSITE_NAME,
+		NEXT_PUBLIC_WEBSITE_DESCRIPTION: process.env.WEBSITE_DESCRIPTION,
+		NEXT_PUBLIC_WEBSITE_NAME_HTTP_STRING: process.env.WEBSITE_NAME_HTTP_STRING,
+		NEXT_PUBLIC_PRODUCTION: process.env.PRODUCTION, // True when in public domain and False when in local domain
+		NEXT_PUBLIC_KEVINFONSECA_URL: process.env.KEVINFONSECA_URL,
+		NEXT_PUBLIC_KEVINFONSECA_API_URL: process.env.KEVINFONSECA_API_URL,
+		NEXT_PUBLIC_API_URL: process.env.PRODUCTION
+			? "https://befree.herokuapp.com"
+			: "http://localhost:5000",
+		NEXT_PUBLIC_FRONTEND_URL: process.env.PRODUCTION
+			? "https://ytdownloader-phi.vercel.app"
+			: "http://localhost:3000",
 	},
 	images: {
 		domains: [

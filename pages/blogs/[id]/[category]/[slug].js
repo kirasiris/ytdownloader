@@ -2,7 +2,6 @@ import { withRouter } from "next/router";
 // ACTIONS
 import { getWordPressPost, getWordPressComments } from "@/actions/wordpress";
 // HELPERS
-import { PUBLIC_URL } from "@/config";
 import Layout from "@/layout/Layout";
 import Row from "react-bootstrap/Row";
 import UseImage from "@/layout/UseImage";
@@ -73,7 +72,7 @@ const SingleBlog = ({
 			author={`Kevin Fonseca`}
 			sectionClass={`mb-3`}
 			containerClass={`container`}
-			canonical={PUBLIC_URL}
+			canonical={process.env.NEXT_PUBLIC_FRONTEND_URL}
 			url={`blogs/${
 				serverWordPressPost.id
 			}/${serverWordPressPost.category_name.toLowerCase()}/${

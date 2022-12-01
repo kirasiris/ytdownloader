@@ -1,10 +1,9 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { API_URL } from "@/config";
 
 // HANLDE API REQUESTS
 const api = axios.create({
-	baseURL: `${API_URL}/api/v1`,
+	baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api/v1`,
 	headers: {
 		"Content-Type": `application/json`,
 	},

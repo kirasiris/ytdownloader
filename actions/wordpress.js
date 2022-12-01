@@ -1,6 +1,5 @@
 import { toast } from "react-toastify";
 import axios from "axios";
-import { KEVINFONSECA_API_URL } from "@/config";
 
 // @desc    Get all parking lots
 // @route   GET https://kevinurielfonseca.me/wp-json/wp/v2
@@ -8,11 +7,14 @@ import { KEVINFONSECA_API_URL } from "@/config";
 // @status  DONE
 export const getWordPressPosts = (params) => async (dispatch) => {
 	try {
-		const res = await axios.get(`${KEVINFONSECA_API_URL}/posts${params}`, {
-			headers: {
-				"Content-Type": `application/json`,
-			},
-		});
+		const res = await axios.get(
+			`${process.env.NEXT_PUBLIC_KEVINFONSECA_API_URL}/posts${params}`,
+			{
+				headers: {
+					"Content-Type": `application/json`,
+				},
+			}
+		);
 
 		return res.data;
 	} catch (err) {
@@ -41,11 +43,14 @@ export const getWordPressPosts = (params) => async (dispatch) => {
 // @status  DONE
 export const getWordPressPost = (id) => async (dispatch) => {
 	try {
-		const res = await axios.get(`${KEVINFONSECA_API_URL}/posts/${id}`, {
-			headers: {
-				"Content-Type": `application/json`,
-			},
-		});
+		const res = await axios.get(
+			`${process.env.NEXT_PUBLIC_KEVINFONSECA_API_URL}/posts/${id}`,
+			{
+				headers: {
+					"Content-Type": `application/json`,
+				},
+			}
+		);
 
 		return res.data;
 	} catch (err) {
@@ -74,11 +79,14 @@ export const getWordPressPost = (id) => async (dispatch) => {
 // @status  DONE
 export const getWordPressComments = (params) => async (dispatch) => {
 	try {
-		const res = await axios.get(`${KEVINFONSECA_API_URL}/comments${params}`, {
-			headers: {
-				"Content-Type": `application/json`,
-			},
-		});
+		const res = await axios.get(
+			`${process.env.NEXT_PUBLIC_KEVINFONSECA_API_URL}/comments${params}`,
+			{
+				headers: {
+					"Content-Type": `application/json`,
+				},
+			}
+		);
 
 		return res.data;
 	} catch (err) {

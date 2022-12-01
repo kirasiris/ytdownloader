@@ -2,7 +2,6 @@ import Link from "next/link";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import useDarkMode from "use-dark-mode";
-import { APP_NAME, KEVINFONSECA_URL } from "@/config";
 
 const Footer = () => {
 	const darkMode = useDarkMode(false, {
@@ -17,7 +16,7 @@ const Footer = () => {
 				<Col md={4} className="align-items-center d-flex">
 					<Link href="/">
 						<a className="lh-1 me-1 text-decoration-none text-muted">
-							{APP_NAME}
+							{process.env.NEXT_PUBLIC_WEBSITE_NAME}
 						</a>
 					</Link>
 
@@ -31,7 +30,7 @@ const Footer = () => {
 						/>
 						&amp; ☕ by
 						<a
-							href={`${KEVINFONSECA_URL}`}
+							href={`${process.env.NEXT_PUBLIC_KEVINFONSECA_URL}`}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="ms-1"

@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Image from "next/image";
 import Nav from "react-bootstrap/Nav";
-import { APP_NAME } from "@/config";
+
 import ContactFormModal from "./ContactFormModal";
 
 Router.onRouteChangeStart = (url) => NProgress.start();
@@ -26,7 +26,7 @@ const Menu = () => {
 							height="30"
 							className="d-inline-block align-top"
 						/>
-						{APP_NAME}
+						{process.env.NEXT_PUBLIC_WEBSITE_NAME}
 					</a>
 				</Link>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />

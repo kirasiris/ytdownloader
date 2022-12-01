@@ -5,7 +5,6 @@ import GitHubCalendar from "github-calendar";
 // HELPERS
 import Layout from "@/layout/Layout";
 import UseImage from "@/layout/UseImage";
-import { KEVINFONSECA_URL } from "@/config";
 // REACT-BOOTSTRAP
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -51,7 +50,7 @@ const About = ({ router }) => {
 						<p>
 							Hello, my name is{" "}
 							<a
-								href={KEVINFONSECA_URL}
+								href={process.env.NEXT_PUBLIC_KEVINFONSECA_URL}
 								target="_blank"
 								rel="noopener noreferrer"
 							>

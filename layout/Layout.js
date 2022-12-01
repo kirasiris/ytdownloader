@@ -3,12 +3,11 @@ import Menu from "@/layout/Navbar";
 import Footer from "@/layout/Footer";
 import JumbotronHeader from "@/layout/JumbotronHeader";
 
-import { APP_NAME, APP_DESCRIPTION, PUBLIC_URL } from "@/config";
 import ScreenShot from "@/screenshot";
 
 const Layout = ({
-	title = `${APP_NAME}`,
-	description = `${APP_DESCRIPTION}`,
+	title = `${process.env.NEXT_PUBLIC_WEBSITE_NAME}`,
+	description = `${process.env.NEXT_PUBLIC_WEBSITE_DESCRIPTION}`,
 	postImage = `${ScreenShot.src}`,
 	imageWidth = `${ScreenShot.width}`,
 	imageHeight = `${ScreenShot.height}`,
@@ -17,7 +16,7 @@ const Layout = ({
 	card = "",
 	robots = "",
 	category = "",
-	canonical = `${PUBLIC_URL}`,
+	canonical = `${process.env.NEXT_PUBLIC_FRONTEND_URL}`,
 	url = "",
 	author = "Kevin Uriel Azuara Fonseca",
 	createdAt = "",
@@ -35,7 +34,9 @@ const Layout = ({
 	return (
 		<>
 			<Head>
-				{title && <title>{APP_NAME + " | " + title}</title>}
+				{title && (
+					<title>{process.env.NEXT_PUBLIC_WEBSITE_NAME + " | " + title}</title>
+				)}
 				{description && (
 					<meta name="description" content={`${description}`}></meta>
 				)}

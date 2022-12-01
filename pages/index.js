@@ -47,6 +47,7 @@ const Home = ({ params, serverVideos, router }) => {
 				setObjects={setVideos}
 				objects={videos}
 			/>
+
 			<SplitView
 				myVideo={myVideo !== null && myVideo !== undefined && myVideo}
 				video={myVideo !== null && myVideo !== undefined && myVideo}
