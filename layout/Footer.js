@@ -1,15 +1,9 @@
 import Link from "next/link";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
-import useDarkMode from "use-dark-mode";
+import ToggleTheme from "./ToggleTheme";
 
 const Footer = () => {
-	const darkMode = useDarkMode(false, {
-		classNameDark: "dark-mode",
-		classNameLight: "light-mode",
-		element: typeof window !== "undefined" && document.body,
-		storageKey: "darkMode",
-	});
 	return (
 		<footer className="align-items-center d-flex flex-wrap justify-content-between py-3">
 			<Container fluid>
@@ -37,16 +31,7 @@ const Footer = () => {
 						</a>
 					</span>
 					<div className="custom-control custom-switch">
-						<input
-							type="checkbox"
-							className="custom-control-input"
-							id="dmcheck"
-							checked={darkMode.value}
-							onChange={darkMode.toggle}
-						/>
-						<label className="custom-control-label" htmlFor="dmcheck">
-							<i className={`far fa-moon`} aria-hidden />
-						</label>
+						<ToggleTheme />
 					</div>
 				</Col>
 			</Container>
