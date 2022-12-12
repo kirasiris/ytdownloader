@@ -16,6 +16,7 @@ import Tab from "react-bootstrap/Tab";
 import Carousel from "react-bootstrap/Carousel";
 import Ratio from "react-bootstrap/Ratio";
 import DownloadsModal from "@/layout/DownloadsModal";
+import Related from "./Related";
 
 const SplitView = ({ myVideo = null, video = null, objects = [], router }) => {
 	const [keyword, setKeyword] = useState("");
@@ -95,6 +96,13 @@ const SplitView = ({ myVideo = null, video = null, objects = [], router }) => {
 								)}
 							</Tab>
 						</Tabs>
+						<Related
+							related={
+								myVideo?.related_videos
+									? myVideo?.related_videos
+									: video?.related_videos
+							}
+						/>
 					</Col>
 					<Col xl={6}>
 						<Form.Control

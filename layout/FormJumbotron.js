@@ -17,7 +17,7 @@ const FormJumbotron = ({ setObject, setObjects, objects }) => {
 	const { video_url, download_video } = videoData;
 
 	const [submitButtonText, setButtonText] = useState(`Search`);
-	const [error, setError] = useState(false);
+	const [, setError] = useState(false);
 	const initLookOut = async (e) => {
 		e.preventDefault();
 		setButtonText(`Searching...`);
