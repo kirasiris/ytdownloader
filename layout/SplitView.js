@@ -106,7 +106,7 @@ const SplitView = ({ myVideo = null, video = null, objects = [], router }) => {
 							value={keyword}
 							className="mb-3"
 						/>
-						{list.length > 0 && (
+						{list?.length > 0 && (
 							<>
 								<hr />
 								<h2>Videos found ({list.length})...</h2>
