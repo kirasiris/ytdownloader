@@ -80,7 +80,6 @@ const Related = ({ related }) => {
 						</>
 					))}
 				</Carousel>
-				<pre>{JSON.stringify(related, null, 4)}</pre>
 			</>
 		)
 	);

@@ -1,6 +1,6 @@
 import { useState } from "react";
-// ACTIONS
-import { addEmail } from "@/actions/emails";
+import { toast } from "react-toastify";
+import axios from "axios";
 // HELPERS
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -47,10 +47,16 @@ const ContactFormModal = ({
 		}
 		e.preventDefault();
 		setValidated(true);
-		await addEmail(contactData)()
-			.then(() => {
+		await axios
+			.post(`/emails`, {
+				...contactData,
+				website: process.env.NEXT_PUBLIC_WEBSITE_NAME,
+			})
+			.then((res) => {
 				setShownMessage(`Submitted`);
 				resetForm();
+				toast.success("Email created");
+				return res.data.data;
 			})
 			.catch((err) => {
 				setError(true);

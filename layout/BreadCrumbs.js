@@ -34,9 +34,9 @@ const BreadCrumbs = ({ router }) => {
 			{breadcrumbs.map((breadcrumb, index) => {
 				return (
 					<Link key={index} href={breadcrumb.href}>
-						<Breadcrumb.Item>
-							{convertBreadcrumb(breadcrumb.breadcrumb)}
-						</Breadcrumb.Item>
+						{/* <Breadcrumb.Item> */}
+						{convertBreadcrumb(breadcrumb.breadcrumb)}
+						{/* </Breadcrumb.Item> */}
 					</Link>
 				);
 			})}

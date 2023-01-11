@@ -1,61 +1,134 @@
 import { withRouter } from "next/router";
-// ACTIONS
-import { getWordPressPost, getWordPressComments } from "@/actions/wordpress";
 // HELPERS
 import Layout from "@/layout/Layout";
 import Row from "react-bootstrap/Row";
 import UseImage from "@/layout/UseImage";
 import Sidebar from "@/layout/Sidebar";
 import BreadCrumbs from "@/layout/BreadCrumbs";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
 
-export const getServerSideProps = async (context) => {
-	const params = `${context.query.id}`;
-	const postId = `?post=${context.query.id}`;
-	const wordPressPost = (await getWordPressPost(params)()) || null;
-	const wordPressComments = (await getWordPressComments(postId)()) || [];
+const SingleBlog = ({ router }) => {
+	const [serverWordPressPost, setServerWordPressPost] = useState(null);
+	const [serverWordPressComments, setServerWordPressComments] = useState([]);
 
-	return {
-		props: {
-			params: params,
-			serverWordPressPost: wordPressPost,
-			serverWordPressComments: wordPressComments,
-		},
+	const getWordPressPost = async (id) => {
+		try {
+			const res = await axios.get(
+				`https://kevinurielfonseca.me/wp-json/wp/v2/posts/${id}`,
+				{
+					headers: {
+						"Content-Type": `application/json`,
+					},
+				}
+			);
+
+			return res.data;
+		} catch (err) {
+			// const error = err.response.data.message;
+			const error = err?.response?.data?.error?.errors;
+			const errors = err?.response?.data?.errors;
+
+			if (error) {
+				// dispatch(setAlert(error, 'danger'));
+				error &&
+					Object.entries(error).map(([, value]) => toast.error(value.message));
+			}
+
+			if (errors) {
+				errors.forEach((error) => toast.error(error.msg));
+			}
+
+			toast.error(err?.response?.statusText);
+			return { msg: err?.response?.statusText, status: err?.response?.status };
+		}
 	};
-};
 
-const SingleBlog = ({
-	params,
-	serverWordPressPost,
-	serverWordPressComments,
-	router,
-}) => {
+	useEffect(() => {
+		const id = window?.location.pathname.split("/");
+
+		getWordPressPost(id[2])
+			.then((res) => {
+				setServerWordPressPost(res);
+			})
+			.catch((err) => console.log(err));
+	}, []);
+
+	/*
+	 *
+	 * COMMENTS
+	 *
+	 */
+	const getWordPressComments = async (id) => {
+		try {
+			const res = await axios.get(
+				`${process.env.NEXT_PUBLIC_KEVINFONSECA_API_URL}/comments?post=${id}`,
+				{
+					headers: {
+						"Content-Type": `application/json`,
+					},
+				}
+			);
+
+			return res.data;
+		} catch (err) {
+			// const error = err.response.data.message;
+			const error = err?.response?.data?.error?.errors;
+			const errors = err?.response?.data?.errors;
+
+			if (error) {
+				// dispatch(setAlert(error, 'danger'));
+				error &&
+					Object.entries(error).map(([, value]) => toast.error(value.message));
+			}
+
+			if (errors) {
+				errors.forEach((error) => toast.error(error.msg));
+			}
+
+			toast.error(err?.response?.statusText);
+			return { msg: err?.response?.statusText, status: err?.response?.status };
+		}
+	};
+
+	useEffect(() => {
+		const id = window?.location.pathname.split("/");
+
+		getWordPressComments(id[2])
+			.then((res) => {
+				setServerWordPressComments(res);
+			})
+			.catch((err) => console.log(err));
+	}, []);
+
 	const fetchComments = () => {
 		return (
 			serverWordPressComments?.length > 0 && (
 				<>
 					<h1>COMMENTS</h1>
-					{serverWordPressComments.map((comment, index) => (
-						<div className="d-flex mb-3" key={comment.id}>
+					{serverWordPressComments?.map((comment, index) => (
+						<div className="d-flex mb-3" key={comment?.id}>
 							<div className="flex-shrink-0">
 								<a
-									href={`${comment.author_url}`}
+									href={`${comment?.author_url}`}
 									target="_blank"
 									rel="noreferrer noopener nofollow"
 								>
-									<UseImage src={`${comment.author_avatar_urls["48"]}`} />
+									<UseImage src={`${comment?.author_avatar_urls["48"]}`} />
 								</a>
 							</div>
 							<div className="flex-grow-1 ml-3">
 								<a
-									href={`${comment.author_url}`}
+									href={`${comment?.author_url}`}
 									target="_blank"
 									rel="noreferrer noopener nofollow"
 								>
-									{comment.author_name}
+									{comment?.author_name}
 								</a>
 								<div
 									dangerouslySetInnerHTML={{
-										__html: comment.content.rendered,
+										__html: comment?.content.rendered,
 									}}
 								/>
 							</div>
@@ -67,38 +140,38 @@ const SingleBlog = ({
 	};
 	return (
 		<Layout
-			title={`${serverWordPressPost.title.rendered}`}
-			description={`${serverWordPressPost.excerpt.rendered}`}
+			title={`${serverWordPressPost?.title.rendered}`}
+			description={`${serverWordPressPost?.excerpt.rendered}`}
 			author={`Kevin Fonseca`}
 			sectionClass={`mb-3`}
 			containerClass={`container`}
 			canonical={process.env.NEXT_PUBLIC_FRONTEND_URL}
 			url={`blogs/${
-				serverWordPressPost.id
-			}/${serverWordPressPost.category_name.toLowerCase()}/${
-				serverWordPressPost.slug
+				serverWordPressPost?.id
+			}/${serverWordPressPost?.category_name.toLowerCase()}/${
+				serverWordPressPost?.slug
 			}`}
 			posType={`page`}
 			cssInline={`
-        img {
-            width: 100%;
-            height: auto;
-        }
-        iframe.youtube-player {
-            width: 100%;
-            height: 480px;
-        }
-      `}
-			postImage={serverWordPressPost.fimg_url}
+		    img {
+		        width: 100%;
+		        height: auto;
+		    }
+		    iframe.youtube-player {
+		        width: 100%;
+		        height: 480px;
+		    }
+		  `}
+			postImage={serverWordPressPost?.fimg_url}
 			jumbotronHeading={false}
 		>
 			<div className={`container mt-3`}>
 				<Row>
-					{serverWordPressPost.template === `template-full-width.php` ? (
+					{serverWordPressPost?.template === `template-full-width.php` ? (
 						<div className="container-fluid">
 							<BreadCrumbs router={router} />
 							<a
-								href={`${serverWordPressPost.link}`}
+								href={`${serverWordPressPost?.link}`}
 								target="_blank"
 								rel="noreferrer noopener"
 								className="btn btn-sm btn-danger btn-block"
@@ -108,7 +181,7 @@ const SingleBlog = ({
 							<hr />
 							<div
 								dangerouslySetInnerHTML={{
-									__html: serverWordPressPost.content.rendered,
+									__html: serverWordPressPost?.content.rendered,
 								}}
 							/>
 							{fetchComments()}
@@ -118,7 +191,7 @@ const SingleBlog = ({
 							<div className="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
 								<BreadCrumbs router={router} />
 								<a
-									href={`${serverWordPressPost.link}`}
+									href={`${serverWordPressPost?.link}`}
 									target="_blank"
 									rel="noreferrer noopener"
 									className="btn btn-sm btn-danger btn-block"
@@ -128,7 +201,7 @@ const SingleBlog = ({
 								<hr />
 								<div
 									dangerouslySetInnerHTML={{
-										__html: serverWordPressPost.content.rendered,
+										__html: serverWordPressPost?.content.rendered,
 									}}
 								/>
 								{fetchComments()}

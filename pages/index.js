@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { withRouter } from "next/router";
-// ACTIONS
-import { getYouTubes } from "@/actions/youtube";
+import axios from "axios";
 // HELPERS
 import Layout from "@/layout/Layout";
 import FormJumbotron from "@/layout/FormJumbotron";
@@ -9,19 +8,20 @@ import SplitView from "@/layout/SplitView";
 
 export const getServerSideProps = async (context) => {
 	const params = ``;
-	const videos = (await getYouTubes(params)()) || [];
-	const totalPages = videos?.pagination?.totalpages || 0;
-	const totalResults = videos?.count || 0;
-	const page = videos?.pagination?.current || 1;
-	const next = videos?.pagination?.next?.page || 0;
-	const prev = videos?.pagination?.prev?.page || 0;
+
+	const videos = await axios.get(`/extras/youtube${params}`);
+	const totalPages = videos?.data.pagination?.totalpages || 0;
+	const totalResults = videos?.data.count || 0;
+	const page = videos?.data.pagination?.current || 1;
+	const next = videos?.data.pagination?.next?.page || 0;
+	const prev = videos?.data.pagination?.prev?.page || 0;
 	const paramsObject = context.query;
 
 	return {
 		props: {
 			params: params,
-			serverVideos: videos?.data || [],
-			totalDocuments: videos?.countAll || 0,
+			serverVideos: videos?.data?.data || [],
+			totalDocuments: videos?.data?.countAll || 0,
 			totalPages: totalPages,
 			totalResults: totalResults,
 			page: page,
@@ -47,15 +47,6 @@ const Home = ({ params, serverVideos, router }) => {
 				setObjects={setVideos}
 				objects={videos}
 			/>
-			<pre>
-				<code>{process.env.NEXT_PUBLIC_KEVINFONSECA_API_URL}</code>
-				<br />
-				<code>{process.env.NEXT_PUBLIC_API_URL}</code>
-				<br />
-				<code>{process.env.NEXT_PUBLIC_FRONTEND_URL}</code>
-				<br />
-				<code>{process.env.NEXT_PUBLIC_PRODUCTION}</code>
-			</pre>
 			<SplitView
 				myVideo={myVideo !== null && myVideo !== undefined && myVideo}
 				video={myVideo !== null && myVideo !== undefined && myVideo}

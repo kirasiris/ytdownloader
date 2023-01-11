@@ -125,7 +125,6 @@ const Layout = ({
 			<Menu />
 			<main>
 				{jumbotronHeading && <JumbotronHeader />}
-
 				{children}
 			</main>
 			<Footer />

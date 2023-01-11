@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { withRouter } from "next/router";
-// ACTIONS
-import { getWordPressPosts } from "@/actions/wordpress";
+import axios from "axios";
 // HELPERS
 import Layout from "@/layout/Layout";
 import NothingFoundAlert from "@/layout/NothingFoundAlert";
@@ -9,54 +8,53 @@ import UseImage from "@/layout/UseImage";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import BreadCrumbs from "@/layout/BreadCrumbs";
-import axios from "axios";
+
 import { toast } from "react-toastify";
+import { useState, useEffect } from "react";
 
-export const getServerSideProps = async (context) => {
+const Blogs = ({ router }) => {
 	const params = `?categories=723328056&page=1&per_page=10`;
-	const wordPressPostListing = (await getWordPressPosts(params)()) || [];
+	const [serverWordPressListingPosts, setServerWordPressListingPosts] =
+		useState([]);
 
-	// const wordPressPostListing = async () => {
-	// 	try {
-	// 		const res = await axios.get(
-	// 			`${process.env.NEXT_PUBLIC_KEVINFONSECA_API_URL}/posts${params}`,
-	// 			{
-	// 				headers: {
-	// 					"Content-Type": "application/json",
-	// 				},
-	// 			}
-	// 		);
+	const getWordPressPosts = async (params) => {
+		try {
+			const res = await axios.get(
+				`https://kevinurielfonseca.me/wp-json/wp/v2/posts${params}`,
+				{
+					headers: {
+						"Content-Type": `application/json`,
+					},
+				}
+			);
 
-	// 		return res.data;
-	// 	} catch (err) {
-	// 		// const error = err.response.data.message;
-	// 		const error = err?.response?.data?.error?.errors;
-	// 		const errors = err?.response?.data?.errors;
+			return res.data;
+		} catch (err) {
+			// const error = err.response.data.message;
+			const error = err?.response?.data?.error?.errors;
+			const errors = err?.response?.data?.errors;
 
-	// 		if (error) {
-	// 			// dispatch(setAlert(error, 'danger'));
-	// 			error &&
-	// 				Object.entries(error).map(([, value]) => toast.error(value.message));
-	// 		}
+			if (error) {
+				// dispatch(setAlert(error, 'danger'));
+				error &&
+					Object.entries(error).map(([, value]) => toast.error(value.message));
+			}
 
-	// 		if (errors) {
-	// 			errors.forEach((error) => toast.error(error.msg));
-	// 		}
+			if (errors) {
+				errors.forEach((error) => toast.error(error.msg));
+			}
 
-	// 		toast.error(err?.response?.statusText);
-	// 		return { msg: err?.response?.statusText, status: err?.response?.status };
-	// 	}
-	// };
-
-	return {
-		props: {
-			params: params,
-			serverWordPressListingPosts: wordPressPostListing,
-		},
+			toast.error(err?.response?.statusText);
+			return { msg: err?.response?.statusText, status: err?.response?.status };
+		}
 	};
-};
 
-const Blogs = ({ params, serverWordPressListingPosts, router }) => {
+	useEffect(() => {
+		getWordPressPosts(params)
+			.then((res) => setServerWordPressListingPosts(res))
+			.catch((err) => console.log(err));
+	}, []);
+
 	return (
 		<Layout
 			title={`Blog`}

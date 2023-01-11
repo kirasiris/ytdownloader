@@ -1,12 +1,12 @@
 import { useState } from "react";
-// ACTION
-import { createYouTube } from "@/actions/youtube";
+import axios from "axios";
 // HELPERS
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+import { toast } from "react-toastify";
 
 const FormJumbotron = ({ setObject, setObjects, objects }) => {
 	const [videoData, setVideoData] = useState({
@@ -21,14 +21,16 @@ const FormJumbotron = ({ setObject, setObjects, objects }) => {
 	const initLookOut = async (e) => {
 		e.preventDefault();
 		setButtonText(`Searching...`);
-		await createYouTube(videoData)()
+		await axios
+			.post(`/extras/youtube/getinfo`, videoData)
 			.then((result) => {
 				setButtonText(`Result`);
-				setObject(result.data);
-				setObjects([result.data, ...objects]);
+				setObject(result.data.data);
+				setObjects([result.data.data, ...objects]);
 				setVideoData({
-					video_url: result.data.videoEmbedUrl,
+					video_url: result.data.data.videoEmbedUrl,
 				});
+				toast.success("Item created");
 				resetForm();
 			})
 			.catch((err) => {
