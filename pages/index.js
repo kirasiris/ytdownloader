@@ -9,7 +9,7 @@ import SplitView from "@/layout/SplitView";
 export const getServerSideProps = async (context) => {
 	const params = ``;
 
-	const videos = await axios.get(`/extras/youtube${params}`);
+	const videos = await axios?.get(`/extras/youtube${params}`);
 	const totalPages = videos?.data.pagination?.totalpages || 0;
 	const totalResults = videos?.data.count || 0;
 	const page = videos?.data.pagination?.current || 1;

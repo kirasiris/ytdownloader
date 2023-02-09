@@ -29,7 +29,7 @@ const Related = ({ related }) => {
 				<h6>Related ({related.length})...</h6>
 				<Carousel responsive={responsive}>
 					{related.map((related, index) => (
-						<>
+						<div key={index}>
 							<a
 								href={`https://www.youtube.com/watch?v=${related.id}`}
 								target="_blank"
@@ -77,7 +77,7 @@ const Related = ({ related }) => {
 							>
 								{related.title}
 							</a>
-						</>
+						</div>
 					))}
 				</Carousel>
 			</>
